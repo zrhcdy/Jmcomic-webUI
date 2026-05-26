@@ -1,0 +1,355 @@
+.banner{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #602c2c;
+    overflow: hidden;
+    /* display: flex; */
+    /* justify-content: center; */
+}
+.controls{
+    position: absolute;
+    width: 80%;
+    height: 0;
+    left: 10%;
+    top: 35%;
+    color: #ffffff;
+}
+.l-btn,.r-btn{
+    position: relative;
+    z-index: 9;
+    width: 30px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    background-color: rgba(0,0,0,.6);
+    border-radius: 5px;
+    float: left;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.r-btn{
+    float: right;
+}
+.br-inner{
+    display: flex;
+    width: 2700px;
+    height: 100%;
+    /* gap: 5px; */
+    padding: 3px;
+    transition: transform .5s ease;
+}
+.banner::before,.banner::after{
+    content: "";
+    z-index: 1;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 15%;
+    height: 100%;
+    background: linear-gradient(to right,rgba(0,0,0,.8),rgba(0,0,0,0));
+}
+.banner::after{
+    left: auto;
+    right: 0;
+    background: linear-gradient(to left,rgba(0,0,0,.8),rgba(0,0,0,0));
+}
+.mob>.br-item{
+    filter: none !important;
+}
+.br-item{
+    display: flex;
+    width: 900px;
+    filter: brightness(.7);
+}
+.br-item.active{
+    filter: brightness(1);
+}
+.l-comic{
+    width: 29%;
+    padding: 3px;
+}
+.s-comic-cr{
+    display: flex;
+    flex-wrap: wrap;
+    width: 14%;
+}
+.s-comic-cr.w2{
+    width: 28%;
+}
+.s-comic{
+    width: 100%;
+    height: 50%;
+    padding: 3px;
+}
+.s-comic-cr.w2 .s-comic{
+    width: 50%;
+}
+.banner .cover{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.banner .cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+
+}
+.tag-cr{
+    display: flex;
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    background: linear-gradient(to bottom,#ff7db1,#ffb7cc);
+    padding: 0 10%;
+}
+.tag-item{
+    width: auto;
+    height: 100%;
+    text-align: center;
+    line-height: 70px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color .3s;
+}
+.tag-item:hover{
+    color: #ff0066;
+}
+.recommendations{
+    width: 100%;
+
+}
+.section{
+    position: relative;
+    /* width: 100%; */
+    background-color: #ffebf1;
+    padding: 30px 0;
+}
+.s-title{
+    padding: 10px 10%;
+    color: #422731;
+}
+.s-title span{
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 500;
+}
+.s-sr-title{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 400;
+    margin-left: 20px;
+}
+.sec-comics{
+    position: relative;
+    width: 100%;
+    height: 330px;
+    margin-top: 20px;
+    margin: auto;
+    overflow: hidden;
+}
+.sc-inner{
+    display: flex;
+    width: auto;
+    height: 100%;
+    gap:10px;
+    transition: transform 0.3s ease;
+}
+.comic-item{
+    width: 210px;
+    height: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    /* float: left; */
+}
+.comic-item .cover{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 270px;
+    cursor: pointer;
+}
+.comic-item .cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.tags{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    width:90%;
+    height: auto;
+    left: 5%;
+    bottom: 5%;
+    gap: 10px;
+}
+.tag{
+    width: auto;
+    /* height: 16px; */
+    padding: 3px 6px;
+    font-size: 10px;
+    background-color: #F48FB1;
+    border-radius: 13px;
+    color: #ffffff;
+}
+.c-title{
+    width: 100%;
+    height: 25px;
+    font-size: 20px;
+    font-weight: 400;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.c-sr-title{
+    font-size: 16px;
+    font-weight: 300;
+    width: 100%;
+    height: 23px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.section .controls{
+    width: 84%;
+    left: 8%;
+    top: auto;
+    bottom: 60%;
+}
+.section .l-btn,.section .r-btn{
+    width: 50px;
+    font-size: 30px;
+}
+@media screen and (max-width:1020px){
+    .banner{
+        height: 350px;
+    }
+    .br-inner{
+        width: 2400px;
+    }
+    .br-item{
+        width: 800px;
+    }
+}
+@media screen and (max-width:850px){
+    .sec-comics{
+        height: 270px;
+    }
+    .comic-item{
+        width: 180px;
+    }
+    .comic-item .cover{
+        height: 220px;
+    }
+}
+@media screen and (max-width:768px){
+    .sec-comics{
+        height: 260px;
+    }
+    .comic-item{
+        width: 140px;
+    }
+    .comic-item .cover{
+        height: 200px;
+    }
+}
+@media screen and (max-width:700px){
+    .banner{
+        height: 320px;
+    }
+    .br-inner{
+        width: 6000px;
+    }
+    .br-item{
+        width: 2000px;
+    }
+    .s-comic-cr{
+        width: 25%;
+        flex-wrap: nowrap;
+    }
+    .s-comic{
+        height: 100%;
+    }
+    .s-comic-cr.w2{
+        width: 50%;
+    }
+    .l-comic{
+        width: 12.5%;
+    }
+    .s-title{
+        padding: 10px 5%;
+    }
+}
+@media screen and (max-width:520px){
+    .sec-comics{
+        height: 260px;
+    }
+    .comic-item{
+        width: var(--iw);
+    }
+    .comic-item .cover{
+        height: 200px;
+    }
+    .section .controls{
+        width: 98%;
+        left: 1%;
+    }
+    .l-btn,.r-btn{
+        width: 30px !important;
+    }
+    .s-title{
+        padding: 10px;
+    }
+    .s-title span{
+        font-size: 35px;
+    }
+    .tag-cr{
+        height: 60px;
+    }
+    .tag-item{
+        line-height: 60px;
+    }
+    .banner .controls{
+        width: 90%;
+        left: 5%;
+    }
+    .section{
+        padding: 15px;
+    }
+}
+@media screen and (max-width:450px){
+    .sec-comics{
+        height: 250px;
+    }
+    .comic-item .cover{
+        height: 190px;
+    }
+    .banner{
+        height: 300px;
+    }
+}
+@media screen and (max-width:410px){
+    .sec-comics{
+        height: 240px;
+    }
+    .comic-item .cover{
+        height: 180px;
+    }
+    .s-title span{
+        font-size: 33px;
+    }
+    .banner{
+        height: 270px;
+    }
+}
+@media screen and (max-height:700px) and (max-width:400px){
+    .banner{
+        height: 250px;
+    }
+}

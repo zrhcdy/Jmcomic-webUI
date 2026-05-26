@@ -1,0 +1,255 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.root{
+    width: 100%;
+    height: auto;
+    padding-top: 50px;
+    /* font-family: fantasy; */
+}
+.nav{
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    padding: 0 10%;
+    background: #F8BBD0;
+}
+
+.page-list-btn{
+    display: none;
+    flex-direction: column;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    padding: 4px 2px;
+}
+.btn-inner{
+    width: 80%;
+    height: 2px;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 1px;
+}
+.logo{
+    font-size: 20px;
+    font-weight: 700;
+    color: #aa4d4d;
+}
+.pages,.pages-2{
+    position: relative;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.page-list{
+    display: flex;
+    height: 100%;
+}
+.bot-bar{
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    bottom: 5px;
+    left:10px;
+    background-color: #F48FB1;
+}
+.p-item{
+    display: block;
+    text-decoration: none;
+    width: 70px;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+    font-size: 16px;
+    color: #fff;
+    cursor: pointer;
+}
+.p-item .small-icon{
+    display: none;
+}
+.p-item:hover{
+    color: #F48FB1;
+}
+.p-item.active{
+    color: #F48FB1;
+    /* border-bottom: 5px solid #925959; */
+}
+.search{
+    width: 250px;
+    height: 34px;
+    margin-right: 20%;
+}
+.search form{
+    width: 100%;
+    height: 100%;
+}
+.search input{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,.5);
+    border-radius: 17px;
+    border: none;
+    font-size: 16px;
+    padding: 0 15px;
+    outline: none;
+    color: #503535;
+
+}
+.search input::placeholder{
+    color: #ffb7b7;
+    
+}
+.mob-nav{
+    display: none;
+    z-index: 99;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.5);
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+.mob-nav.show{
+    opacity: 1;
+}
+.show .mn-inner{
+    transform: translateX(0px);
+}
+.mn-inner{
+    width: 250px;
+    height: 100%;
+    background-color: #fff8f8;
+    transform: translateX(-250px);
+    transition: transform .4s;
+
+    /* padding: 10px; */
+    /* margin-top: 50px; */
+}
+.mn-head{
+    width: 110px;
+    height: 130px;
+    padding: 20px 10px;
+}
+.mn-head img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 3px #ffb8c8;
+
+}
+.mn-items-cr{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+.mn-item{
+    display: block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    color: #ffb7b7;
+    padding-left: 20px;
+    text-decoration: none;
+}
+.mn-item.active{
+    background-color: #ffdce6;
+    color: #ff75a3;
+}
+.switch-server{
+    z-index: 99;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+    bottom: 10%;
+    width: 70px;
+    height: 70px;
+    background-color: #ff6183;
+    color: #fff;
+    border-radius: 50%;
+    box-shadow: 1px 1px 10px 3px #794252;
+    cursor: pointer;
+}
+.switch-server:hover .sh-sr-cr{
+    height: 300px;
+}
+.sh-sr-cr{
+    position: absolute;
+    right: 0;
+    bottom: 120%;
+    width: 150px;
+    height: 0;
+    background-color: #efefef;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: height .5s;
+}
+.server-name{
+    width: 100%;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    background-color: #ff7fa7;
+}
+.server-name.active{
+    background-color: #ff6183;
+}
+@media screen and (max-width:1300px){
+    .nav{
+        padding: 0 5%;
+    }
+}
+@media screen and (max-width:1100px){
+    .search{
+        margin-right: 10%;
+    }
+}
+@media screen and (max-width:950px){
+    .search{
+        margin-right: 0;
+    }
+    .pages-2 div.small-icon{
+        display: block;
+    }
+    .pages-2 .p-item{
+        width: 50px;
+    }
+    .p-item span{
+        display: none;
+    }
+}
+@media screen and (max-width:800px){
+    .page-list-btn{
+        display: flex;
+    }
+    .page-list{
+        display: none;
+    }
+}
+@media screen and (max-width:500px){
+    .search{
+        width: 200px;
+    }
+}
+@media screen and (max-width:420px){
+    .logo{
+        font-size: 17px;
+    }
+    .search{
+        width: 180px;
+    }
+}
