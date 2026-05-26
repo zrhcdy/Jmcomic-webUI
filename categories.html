@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>分类</title>
+        <link rel="stylesheet" href="./style/basic.css" />
+        <link rel="stylesheet" href="./style/categories.css" />
+    </head>
+    <body>
+        <div class="root">
+            <nav class="nav">
+                <div class="page-list-btn">
+                    <div class="btn-inner"></div>
+                    <div class="btn-inner"></div>
+                    <div class="btn-inner"></div>
+                </div>
+                <div class="logo">JmViewer</div>
+                <div class="pages">
+                    <!-- <div class="bot-bar"></div> -->
+                    <div class="page-list">
+                        <a class="p-item" href="./index.html">首页</a>
+                        <a class="p-item" href="./latest.html">最新</a>
+                        <a class="p-item active" href="#">分类</a>
+                    </div>
+                </div>
+                <div class="search">
+                    <form>
+                        <input type="search" placeholder="搜索" />
+                    </form>
+                </div>
+                <div class="pages-2">
+                    <div class="page-list">
+                        <a class="p-item" href="#">
+                            <span>收藏</span>
+                            <div class="small-icon">#</div>
+                        </a>
+                        <a class="p-item" href="#">
+                            <span>历史</span>
+                            <div class="small-icon">#</div>
+                        </a>
+                        <a class="p-item" href="#">
+                            <span>设置</span>
+                            <div class="small-icon">#</div>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <nav class="mob-nav">
+                <div class="mn-inner">
+                    <div class="mn-head">
+                        <img src="./image/cover.png" alt="头像" />
+                    </div>
+                    <div class="mn-items-cr">
+                        <a class="mn-item" href="./index.html"> 主页 </a>
+                        <a class="mn-item" href="./latest.html"> 最新 </a>
+                        <a class="mn-item active" href="#"> -分类- </a>
+                        <a class="mn-item"> 收藏 </a>
+                        <a class="mn-item"> 历史 </a>
+                        <a class="mn-item" href="./setting.html"> 设置 </a>
+                    </div>
+                </div>
+            </nav>
+            <div class="switch-server">
+                <span>图源1</span>
+                <div class="sh-sr-cr">
+                    <div class="server-name">图源1</div>
+                    <div class="server-name">图源2</div>
+                    <div class="server-name">图源3</div>
+                    <div class="server-name">图源4</div>
+                    <div class="server-name">图源5</div>
+                    <div class="server-name">图源6</div>
+                </div>
+            </div>
+            <div class="categories-head">
+                <div class="tags-section">
+                    <div class="tags-container-1">
+                    </div>
+                    <div class="tags-inner">
+                    </div>
+                </div>
+                <div class="sort">
+                    <div
+                        class="sort-item"
+                        style="display: block"
+                        data-mode="mostViews"
+                    >
+                        按观看量
+                    </div>
+                    <div class="sort-item" data-mode="addTime">按时间</div>
+                    <div class="sort-item" data-mode="mostLikes">按点赞量</div>
+                    <div class="sort-item" data-mode="day">按日排行</div>
+                </div>
+            </div>
+            <div class="categories-body"></div>
+        </div>
+        <script type="module" src="./src/pages/categories.js"></script>
+    </body>
+</html>
