@@ -47,7 +47,7 @@ export class BannerManager {
                 let data=content.large[i]
                 let cover=largeComics[i].children[0]
                 cover.dataset.src=jmApi.getCoverImageURL(data.id)
-                cover.href=`/chapter.html?id=${data.id}`
+                cover.href=`./chapter.html?id=${data.id}`
                 lazyLoader.addCover(cover)
             }
             let smallComics=item.querySelectorAll(".s-comic")
@@ -55,7 +55,7 @@ export class BannerManager {
                 let id=content.small[i]
                 let cover=smallComics[i].children[0]
                 cover.dataset.src=jmApi.getCoverImageURL(id)
-                cover.href=`/chapter.html?id=${id}`
+                cover.href=`./chapter.html?id=${id}`
                 lazyLoader.addCover(cover)
             }
         })

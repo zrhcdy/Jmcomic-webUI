@@ -35,7 +35,7 @@ export class RecommendationsComicManager {
         for (let i = 0; i < this.recommendedComicsCrDom.children.length; i++) {
             let ele = this.recommendedComicsCrDom.children[i];
             ele.addEventListener("click", () => {
-                open("/chapter.html?id=" + ele.dataset.cid);
+                open("./chapter.html?id=" + ele.dataset.cid);
             });
         }
     }

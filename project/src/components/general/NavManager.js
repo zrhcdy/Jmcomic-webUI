@@ -34,7 +34,7 @@ export class NavManager{
             e.preventDefault()
             let value=this.searchInput.value
             if(value.trim()==="")return
-            open(`/search.html?sq=${value}`,"search_page")
+            open(`./search.html?sq=${value}`,"search_page")
         })
     }
 }
