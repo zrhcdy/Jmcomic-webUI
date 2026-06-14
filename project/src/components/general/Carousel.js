@@ -93,10 +93,14 @@ export class Carousel {
                 isHorizontal = false;
                 this.containerInner.getBoundingClientRect();
 
+                
                 if (deltaX < -20) {
-                    this.moveRight();
+                    if(this.index<this.maxIndex)this.moveRight();
+                    else this.setTransform();
+                    
                 } else if (deltaX > 20) {
-                    this.moveLeft();
+                    if(this.index>0)this.moveLeft();
+                    else this.setTransform();
                 } else {
                     this.setTransform();
                 }
