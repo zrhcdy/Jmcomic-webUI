@@ -9,8 +9,8 @@ export class SearchContainerManager {
     searchMode = "mv";
     SEARCHMODE = {
         mostViews: "mv",
-        mostLikes:"tf",
-        day:"mv_t",
+        mostLikes: "tf",
+        day: "mv_t",
         addTime: "",
     };
     /*
@@ -28,6 +28,7 @@ export class SearchContainerManager {
         this.searchQuery = sq;
         this.containerDom = document.querySelector(".search-cr");
         this.searchModeDom = document.querySelector(".sort");
+        this.loadingIconDom = document.querySelector(".loading-icon");
         this.scrollContainer = new InfinityScrollContainer({
             container: this.containerDom,
             threshold: 100,
@@ -44,27 +45,34 @@ export class SearchContainerManager {
     }
     _research() {
         this.containerDom.innerHTML = "";
+        this.containerDom.appendChild(this.loadingIconDom);
         this.scrollContainer.pageIndex = 1;
         this.loadContent(1);
     }
-    research = this.debounce(this._research, 500, this);
+    research = this.debounce(this._research, 300, this);
     init() {
         this.scrollContainer.init();
         this.#addEvent();
     }
     async loadContent(page) {
+        this.loadingIconDom.style.display = "block";
         if (
             page === 1 &&
             Number.isInteger(+this.searchQuery) &&
             +this.searchQuery > 10
         ) {
-            let album = await jmApi.getComicAlbum(this.searchQuery);
-            if (album.name) {
-                let crDom = this.#getComicsCr([album]);
-                this.containerDom.appendChild(crDom);
-                lazyLoader.addCover(crDom.querySelector(".cover"));
-            }else{
-                console.error("warning:the id is not defined")
+            let album;
+            try {
+                album = await jmApi.getComicAlbum(this.searchQuery);
+                if (album.name) {
+                    let crDom = this.#getComicsCr([album]);
+                    this.containerDom.appendChild(crDom);
+                    lazyLoader.addCover(crDom.querySelector(".cover"));
+                } else {
+                    console.error("warning:the id is not defined");
+                }
+            } catch (err) {
+                console.error(err);
             }
         }
         let list = await jmApi.getSearchResults(
@@ -72,7 +80,8 @@ export class SearchContainerManager {
             page,
             this.searchMode,
         );
-        
+        this.loadingIconDom.style.display = "none";
+
         this.scrollContainer.maxPageIndex = Math.ceil(list.total / 80);
 
         let crDom = this.#getComicsCr(list.content);

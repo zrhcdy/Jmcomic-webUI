@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate">
         <title>搜索</title>
         <link rel="stylesheet" href="./style/basic.css" />
         <link rel="stylesheet" href="./style/search.css" />
@@ -92,7 +93,9 @@
                     <div class="sort-item" data-mode="mostLikes">搜索模式：按点赞量</div>
                     <div class="sort-item" data-mode="day">搜索模式：按日排行</div>
                 </div>
-                <div class="search-cr"></div>
+                <div class="search-cr">
+                    <div class="loading-icon" style="display: block;"></div>
+                </div>
             </div>
         </div>
         <script>

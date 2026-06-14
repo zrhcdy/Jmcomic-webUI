@@ -29,7 +29,7 @@ export class HeadManager{
         const tagsDom=this.headDom.querySelector(".tags")
         
         tagsDom.innerHTML=this.album.tags.map((tagName)=>`
-            <div class="tag">${tagName}</div>
+            <a href="./search.html?sq=${tagName}" target="_blank" class="tag">${tagName}</a>
         `).join("")
 
         const latest=this.headDom.querySelector(".latest")

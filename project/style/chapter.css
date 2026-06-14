@@ -50,6 +50,7 @@
     flex-wrap: wrap;
 }
 .tag {
+    display: block;
     padding: 3px 10px;
     font-size: 12px;
     color: #ffebf1;
@@ -195,6 +196,7 @@
     font-size: 16px;
 }
 .comic-content-cr {
+    position: relative;
     width: 100%;
     height: auto;
     margin-top: 10px;
@@ -228,6 +230,7 @@
 .comic-img-cr {
     width: 100%;
     height: auto;
+    /* margin-top: 120px; */
 }
 
 .comic-img {
@@ -314,6 +317,21 @@
     overflow: hidden;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+.m-progress{
+    position: sticky;
+    top: 200px;
+    float: right;
+    width: 20px;
+    height: 120px;
+    background-color: #e4396c;
+    border-radius: 5px 0 0 5px;
+    z-index: 10;
+    margin-top: -120px;
+    transform: translateY(200px);
+}
+.m-progress-inner{
+
 }
 .progress-cr {
     position: sticky;
