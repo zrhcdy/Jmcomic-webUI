@@ -62,7 +62,7 @@ class JmcomicApi {
      */
     async #getCurrentApi() {
         const resp = await this.retryFetch(
-            "https://rup4a04-c01.tos-ap-southeast-1.bytepluses.com/newsvr-2025.txt",
+            "https://rup4a04-c02.tos-cn-hongkong.bytepluses.com/newsvr-2025.txt",
             1,
         );
         const text = await resp.text();
