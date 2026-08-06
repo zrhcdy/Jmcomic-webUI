@@ -18,5 +18,8 @@ class LazyLoader {
     addCover(coverEle){
         this.observer.observe(coverEle)
     }
+    clear(){
+        this.observer.disconnect()
+    }
 }
 export const lazyLoader=new LazyLoader()

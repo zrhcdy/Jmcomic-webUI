@@ -28,6 +28,9 @@
     -webkit-user-select: none;
     user-select: none;
 }
+.l-btn{
+    display: none;
+}
 .r-btn{
     float: right;
 }
@@ -115,6 +118,8 @@
     font-size: 16px;
     cursor: pointer;
     transition: color .3s;
+    text-decoration: none;
+
 }
 .tag-item:hover{
     color: #ff0066;

@@ -47,7 +47,9 @@ export class SearchContainerManager {
         this.containerDom.innerHTML = "";
         this.containerDom.appendChild(this.loadingIconDom);
         this.scrollContainer.pageIndex = 1;
+        lazyLoader.clear();
         this.loadContent(1);
+
     }
     research = this.debounce(this._research, 300, this);
     init() {
@@ -63,7 +65,10 @@ export class SearchContainerManager {
         ) {
             let album;
             try {
+                let qpm=this.searchQuery+page+this.searchMode
                 album = await jmApi.getComicAlbum(this.searchQuery);
+                if(qpm!==this.searchQuery+page+this.searchMode)return
+                this.loadingIconDom.style.display = "none";
                 if (album.name) {
                     let crDom = this.#getComicsCr([album]);
                     this.containerDom.appendChild(crDom);
@@ -75,11 +80,13 @@ export class SearchContainerManager {
                 console.error(err);
             }
         }
+        let qpm=this.searchQuery+page+this.searchMode
         let list = await jmApi.getSearchResults(
             this.searchQuery,
             page,
             this.searchMode,
         );
+        if(qpm!==this.searchQuery+page+this.searchMode)return
         this.loadingIconDom.style.display = "none";
 
         this.scrollContainer.maxPageIndex = Math.ceil(list.total / 80);

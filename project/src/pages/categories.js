@@ -21,7 +21,7 @@ class CategoriesPage {
         this.categoriesContainerManager.init()
 
         this.categoriesHeadManager.onCategoryUpdate=(slug,order)=>{
-            console.log(slug);
+            // console.log(slug);
             
             this.categoriesContainerManager.setArgs(slug,order)
             this.categoriesContainerManager.research()

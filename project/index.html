@@ -3,9 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate">
+        <meta
+            http-equiv="Cache-Control"
+            content="max-age=3600, must-revalidate"
+        />
         <title>jmViewer</title>
-        <link rel="stylesheet" href="./style/basic.css">
+        <link rel="stylesheet" href="./style/basic.css" />
         <link rel="stylesheet" href="./style/index.css" />
     </head>
     <body>
@@ -50,51 +53,29 @@
             <nav class="mob-nav">
                 <div class="mn-inner">
                     <div class="mn-head">
-                        <img src="./image/cover.png" alt="头像">
+                        <img src="./image/cover.png" alt="头像" />
                     </div>
                     <div class="mn-items-cr">
                         <a class="mn-item active" href="./index.html">
                             -主页-
                         </a>
-                        <a class="mn-item" href="./latest.html">
-                            最新
-                        </a>
-                        <a class="mn-item" href="./categories.html">
-                            分类
-                        </a>
-                        <a class="mn-item">
-                            收藏
-                        </a>
-                        <a class="mn-item">
-                            历史
-                        </a>
-                        <a class="mn-item" href="./setting.html">
-                            设置
-                        </a>
+                        <a class="mn-item" href="./latest.html"> 最新 </a>
+                        <a class="mn-item" href="./categories.html"> 分类 </a>
+                        <a class="mn-item"> 收藏 </a>
+                        <a class="mn-item"> 历史 </a>
+                        <a class="mn-item" href="./setting.html"> 设置 </a>
                     </div>
                 </div>
             </nav>
             <div class="switch-server">
                 <span>图源1</span>
                 <div class="sh-sr-cr">
-                    <div class="server-name">
-                        图源1
-                    </div>
-                    <div class="server-name">
-                        图源2
-                    </div>
-                    <div class="server-name">
-                        图源3
-                    </div>
-                    <div class="server-name">
-                        图源4
-                    </div>
-                    <div class="server-name">
-                        图源5
-                    </div>
-                    <div class="server-name">
-                        图源6
-                    </div>
+                    <div class="server-name">图源1</div>
+                    <div class="server-name">图源2</div>
+                    <div class="server-name">图源3</div>
+                    <div class="server-name">图源4</div>
+                    <div class="server-name">图源5</div>
+                    <div class="server-name">图源6</div>
                 </div>
             </div>
             <div class="banner">
@@ -244,20 +225,54 @@
                 </div>
             </div>
             <div class="tag-cr">
-                <div class="tag-item">中出</div>
-                <div class="tag-item">巨乳</div>
-                <div class="tag-item">福瑞</div>
-                <div class="tag-item">无修正</div>
-                <div class="tag-item">全彩</div>
-                <div class="tag-item">百合</div>
-                <div class="tag-item">白虎</div>
-                <div class="tag-item">黑丝</div>
-                <div class="tag-item">萝莉</div>
-                <div class="tag-item">白丝</div>
-                <div class="tag-item">cosplay</div>
-                <div class="tag-item">更多</div>
+                <a href="./search.html?sq=中出" class="tag-item" >中出</a>
+                <a href="./search.html?sq=巨乳" class="tag-item">巨乳</a>
+                <a href="./search.html?sq=福瑞" class="tag-item">福瑞</a>
+                <a href="./search.html?sq=无修正" class="tag-item">无修正</a>
+                <a href="./search.html?sq=全彩" class="tag-item">全彩</a>
+                <a href="./search.html?sq=百合" class="tag-item">百合</a>
+                <a href="./search.html?sq=白虎" class="tag-item">白虎</a>
+                <a href="./search.html?sq=黑丝" class="tag-item">黑丝</a>
+                <a href="./search.html?sq=萝莉" class="tag-item">萝莉</a>
+                <a href="./search.html?sq=白丝" class="tag-item">白丝</a>
+                <a href="./search.html?sq=cosplay" class="tag-item">cosplay</a>
+                <a href="./categories.html" class="tag-item">更多</a>
             </div>
         </div>
     </body>
+    <script>
+        //page init setting
+        (function () {
+            const banner = document.querySelector(".banner");
+            const bannerInner = banner.querySelector(".br-inner");
+            const bannerItemWidth = bannerInner.children[0].offsetWidth;
+            const bannerWidth = banner.offsetWidth;
+
+            bannerInner.style.transitionDuration = "0s";
+            bannerInner.style.transform = `translateX(${(bannerWidth - bannerItemWidth) / 2}px)`;
+            //dom update
+            bannerInner.getBoundingClientRect();
+            bannerInner.style.transitionDuration = null;
+        })();
+        (function () {
+            const tagContainerDom = document.querySelector(".tag-cr");
+            const items = tagContainerDom.children;
+            let width = 90;
+            if (tagContainerDom.offsetWidth < 500) {
+                width = 75;
+            }
+            let count = Math.floor(tagContainerDom.offsetWidth / width);
+            if (count > items.length) {
+                count = items.length;
+            }
+            for (let i = 0; i < items.length; i++) {
+                if (i > items.length - count - 1) {
+                    items[i].style.display = "block";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        })();
+    </script>
     <script type="module" src="./src/pages/index.js"></script>
 </html>

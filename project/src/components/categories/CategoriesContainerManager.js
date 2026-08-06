@@ -23,6 +23,7 @@ export class CategoriesContainerManager{
             coolingTime:500,
             loadContent:(page)=>this.loadContent(page)
         })
+
     }
     setArgs(slug,order){
         this.slug=slug
@@ -38,6 +39,7 @@ export class CategoriesContainerManager{
     _research(){
         this.containerDom.innerHTML=''
         this.scrollContainer.pageIndex=0
+        lazyLoader.clear()
         this.loadContent(0)
     }
     research=this.debounce(this._research,500,this)
@@ -47,7 +49,13 @@ export class CategoriesContainerManager{
     }
     async loadContent(page){
         if(!this.slug)return
+        let sps=this.slug+page+this.searchMode
         let list=await jmApi.getCategoriesFilter(this.slug,page,this.searchMode)
+        //check if the slug and page are still the same, if not, return
+        console.log(this.slug,page,this.searchMode,sps);
+        
+        if(this.slug+page+this.searchMode!==sps)return
+
         this.scrollContainer.maxPageIndex=Math.ceil(list.total/80)
         
         let crDom=this.#getComicsCr(list.content)

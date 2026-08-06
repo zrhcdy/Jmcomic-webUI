@@ -9,8 +9,8 @@ export class CategoriesHeadManager {
     sortDom
 
     searchMode
-    slug
-    subSlug
+    slug="defaultslug"
+    subSlug="defaultslug"
     constructor() {
         this.headDom = document.querySelector(".categories-head");
         this.tagsCr1 = this.headDom.querySelector(".tags-container-1");
@@ -62,6 +62,7 @@ export class CategoriesHeadManager {
         tag.classList.add("active");
         this.selectedTag = tag;
         this.slug=slug
+        this.subSlug="defaultslug"
         if(this.selectedInnerTags[slug])this.subSlug=this.selectedInnerTags[slug].dataset.slug
         this.onCategoryUpdate(this.slug+"_"+this.subSlug,this.searchMode)
     }

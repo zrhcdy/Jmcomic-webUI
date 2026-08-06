@@ -40,10 +40,22 @@ export class Carousel {
     }
     addControlsEvent() {
         this.controls.left.addEventListener("click", () => {
-            if (!this.touching) this.moveLeft();
+            if (!this.touching && this.index > 0) {
+                this.moveLeft();
+                if (this.index === 0) {
+                    this.controls.left.style.display = "none";
+                }
+                this.controls.right.style.display = "block";
+            };
         });
         this.controls.right.addEventListener("click", () => {
-            if (!this.touching) this.moveRight();
+            if (!this.touching && this.index < this.maxIndex) {
+                this.moveRight();
+                if (this.index === this.maxIndex) {
+                    this.controls.right.style.display = "none";
+                }
+                this.controls.left.style.display = "block";
+            }
         });
         this.addTouchingEvent();
     }
