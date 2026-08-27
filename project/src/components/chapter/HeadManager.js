@@ -5,6 +5,8 @@ export class HeadManager{
     album
     headDom
     evaluation
+    favoriteListIndex=false
+    favoriteList
     constructor(){
 
     }
@@ -14,7 +16,22 @@ export class HeadManager{
         this.#setAlbum()
         this.evaluation=new Evaluation()
         this.evaluation.init(this.album)
+        this.favoriteList=this.getFavoriteList()
+        this.favoriteListIndex=this.favoriteList.findIndex(f=>f.id==album)
+        if(this.favoriteListIndex>-1){
+            this.headDom.querySelector(".add-favorite").textContent="已收藏"
+        }
         this.addEvents()
+    }
+    getFavoriteList(){
+        let f=localStorage.getItem("favorite")
+        if(!f){
+            f=[]
+        }else{
+            f=JSON.parse(f)
+        }
+
+        return f;
     }
     #setAlbum(){
         const cover=this.headDom.querySelector(".cover")
@@ -52,6 +69,29 @@ export class HeadManager{
             document.querySelector(".comic-content-cr").scrollIntoView({
                 behavior:"smooth"
             })
+        })
+
+        const favoriteBtn=this.headDom.querySelector(".add-favorite")
+        favoriteBtn.addEventListener("click",()=>{
+            if(this.favoriteListIndex>-1){
+                favoriteBtn.textContent="收藏"
+                this.favoriteList.splice(this.favoriteListIndex,1)
+                this.favoriteListIndex=-1
+            }else{
+                favoriteBtn.textContent="已收藏"
+                let fi = this.favoriteList.findIndex((h) => +h.id == +this.album.id);
+                if (fi > -1) {
+                    this.favoriteList.splice(fi, 1);
+                }
+                this.favoriteList.unshift({
+                    id: this.album.id,
+                    addTime: new Date().toLocaleDateString(),
+                    name: this.album.name,
+                    author: this.album.author,
+                })
+                this.favoriteListIndex=0
+            }
+            localStorage.setItem("favorite",JSON.stringify(this.favoriteList))
         })
     }
 }

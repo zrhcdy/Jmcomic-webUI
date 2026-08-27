@@ -67,6 +67,8 @@
     position: absolute;
     left: 20px;
     bottom: 0;
+    display: flex;
+    width: auto;
 }
 .start-read {
     width: 150px;
@@ -78,6 +80,20 @@
     line-height: 60px;
     border-radius: 10px;
     cursor: pointer;
+    flex-shrink: 0;
+}
+.add-favorite{
+    width: 150px;
+    height: 60px;
+    font-size: 20px;
+    color: #ffffff;
+    background-color: #ff7aa2;
+    text-align: center;
+    line-height: 60px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+    flex-shrink: 0;
 }
 .body {
     display: flex;
@@ -492,6 +508,10 @@
     .jm-id > span {
         font-size: 30px !important;
     }
+    .add-favorite,.start-read{
+        width: 120px;
+        font-size: 18px;
+    }
 }
 @media screen and (max-width: 500px) {
     .head {
@@ -511,5 +531,18 @@
     }
     .jm-id > span {
         font-size: 25px !important;
+    }
+    .actions{
+        width: 100%;
+    }
+    .add-favorite,.start-read{
+        width: 40%;
+        height: 50px;
+        line-height: 50px;
+        font-size: 16px;
+        
+    }
+    .add-favorite{
+        margin-left: 5px;
     }
 }
