@@ -42,6 +42,7 @@ export class RecommendationsManager {
                         <div class="l-btn">&lAarr;</div>
                         <div class="r-btn">&rAarr;</div>
                     </div>
+                    <div class="show-list-btn" title="以列表的形式显示">Show List...</div>
                 </div>
             `;
             innerHTML+=section

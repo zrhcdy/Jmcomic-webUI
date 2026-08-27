@@ -18,6 +18,14 @@ export class SectionCarousel extends Carousel {
         this.addControlsEvent();
         this.#onResize()
         window.addEventListener("resize", ()=>this.#onResize());
+
+        this.addShowListEvent(secComic.parentNode.querySelector(".show-list-btn"))
+
+    }
+    addShowListEvent(showListBtn){
+        showListBtn.addEventListener("click", ()=>{
+            this.container.parentNode.classList.toggle("show-list")
+        })
     }
     getItemWidth() {
         return this.secComicWidth;
@@ -37,7 +45,7 @@ export class SectionCarousel extends Carousel {
         let iWidth=this.containerInner.children[0].offsetWidth
         let count
         let gap=10
-        if(parentNode.offsetWidth>520){
+        if(innerWidth>540){
             count = Math.floor((parentNode.offsetWidth * 0.85 + 10) / (iWidth+10));
         }else{
             count = 3

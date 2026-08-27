@@ -36,7 +36,7 @@ export class ComicImageLoader {
                 for (let entry of entries) {
                     if (entry.isIntersecting) {
                         const cover = entry.target;
-                        if(!cover.dataset.beginload && this.queue.hasEmptySeat()){
+                        if(!cover.dataset.beginload){
                             const coverImg = cover.querySelector("img");
                             this.queue.add(cover)
                             cover.dataset.beginload="true"

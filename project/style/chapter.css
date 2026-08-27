@@ -142,6 +142,45 @@
     font-weight: 400;
     margin: 0 10px;
 }
+.series {
+    width: 100%;
+    background-color: #ffebf1;
+    margin-top: 10px;
+    padding: 20px;
+}
+.series h1 {
+    font-weight: 400;
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+.series-inner {
+    width: 90%;
+    height: auto;
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: auto;
+    scrollbar-width: 0;
+    margin: auto;
+    gap: 10px;
+}
+.series-inner::-webkit-scrollbar {
+    width: 0;
+}
+.series-item {
+    width: 70px;
+    height: 40px;
+    color: #ff7aa2;
+    border: 1px solid #ff7aa2;
+    border-radius: 5px;
+    line-height: 40px;
+    text-align: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+.series-item.active {
+    background-color: #ff7aa2;
+    color: #ffebf1;
+}
 .comment {
     position: relative;
     width: 100%;
@@ -318,7 +357,7 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
-.m-progress{
+.m-progress {
     position: sticky;
     top: 200px;
     float: right;
@@ -330,8 +369,7 @@
     margin-top: -120px;
     transform: translateY(200px);
 }
-.m-progress-inner{
-
+.m-progress-inner {
 }
 .progress-cr {
     position: sticky;
