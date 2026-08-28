@@ -7,23 +7,41 @@ export class InfinityScrollContainer {
     loadContent;
     coolingTime;
     prevLoadedTime = 0;
+    isGlobalContainer
     constructor({
         container = null,
         threshold = 100,
         loadContent = () => {},
         coolingTime = 1000,
+        isGlobalContainer = true
     }) {
         this.container = container;
         this.threshold = threshold;
         this.loadContent = loadContent;
         this.coolingTime = coolingTime;
+        this.isGlobalContainer = isGlobalContainer
     }
     init() {
         this.addEvent();
         this.#onScroll();
     }
     addEvent() {
-        window.addEventListener("scroll", () => this.#onScroll());
+        (this.isGlobalContainer?window:this.container.parentNode).addEventListener("scroll", () => this.#onScroll());
+    }
+    getBottom(){
+        if(this.isGlobalContainer){
+            return Math.floor(
+                document.documentElement.offsetHeight -
+                document.documentElement.scrollTop -
+                innerHeight,
+            );
+        }
+        
+        return Math.floor(
+            this.container.offsetHeight -
+            this.container.parentNode.scrollTop -
+            this.container.parentNode.offsetHeight,
+        );
     }
     #onScroll() {
         if (
@@ -33,11 +51,9 @@ export class InfinityScrollContainer {
         )
             return;
         
-        let bottom = Math.floor(
-            document.documentElement.offsetHeight -
-                document.documentElement.scrollTop -
-                window.screen.height,
-        );
+        let bottom = this.getBottom()
+        console.log(bottom);
+        
         if (bottom < this.threshold) {
             this.loadContent(++this.pageIndex).then(
                 () => (this.isLoading = false),

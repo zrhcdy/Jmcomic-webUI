@@ -58,7 +58,7 @@ class ChapterPage {
                 name: album.name,
                 author: album.author,
             });
-            if(history.length>9999){
+            if(history.length>666){
                 history.pop()
             }
             localStorage.setItem("history", JSON.stringify(history));

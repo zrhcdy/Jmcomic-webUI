@@ -171,11 +171,11 @@
 }
 .series-inner {
     width: 90%;
-    height: auto;
+    height: 40px;
     display: flex;
     overflow-x: scroll;
-    overflow-y: auto;
-    scrollbar-width: 0;
+    overflow-y: hidden;
+    scrollbar-width: none;
     margin: auto;
     gap: 10px;
 }
@@ -184,7 +184,7 @@
 }
 .series-item {
     width: 70px;
-    height: 40px;
+    height: 38px;
     color: #ff7aa2;
     border: 1px solid #ff7aa2;
     border-radius: 5px;
@@ -215,10 +215,17 @@
     padding-bottom: 10px;
 }
 .comment-inner {
+    height: auto;
+    padding: 10px;
+}
+.comment-scroll-cr{
     width: 100%;
     height: 340px;
-    padding: 10px;
     overflow-y: hidden;
+}
+.comment-scroll-cr.show-more{
+    height:450px;
+    overflow-y: scroll;
 }
 .comment-item {
     display: flex;
@@ -271,6 +278,7 @@
         rgb(255, 223, 174) 0%,
         transparent 100%
     );
+    cursor: pointer;
 }
 .cr-head {
     display: flex;
@@ -474,6 +482,12 @@
     .mob-det-info {
         display: block;
     }
+    .series{
+        margin-top: 0;
+    }
+    .comic-content-cr{
+        margin-top: 0;
+    }
 }
 @media screen and (max-width: 680px) {
     .head {
@@ -533,14 +547,14 @@
         font-size: 25px !important;
     }
     .actions{
-        width: 100%;
+        width: calc(100% - 20px);
     }
     .add-favorite,.start-read{
-        width: 40%;
+        width: 50%;
         height: 50px;
         line-height: 50px;
         font-size: 16px;
-        
+        flex-shrink: auto;
     }
     .add-favorite{
         margin-left: 5px;

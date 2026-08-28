@@ -42,22 +42,28 @@ export class Carousel {
         this.controls.left.addEventListener("click", () => {
             if (!this.touching && this.index > 0) {
                 this.moveLeft();
-                if (this.index === 0) {
-                    this.controls.left.style.display = "none";
-                }
-                this.controls.right.style.display = "block";
-            };
+                this.setControlBtnsDisplay()
+            }
         });
         this.controls.right.addEventListener("click", () => {
             if (!this.touching && this.index < this.maxIndex) {
                 this.moveRight();
-                if (this.index === this.maxIndex) {
-                    this.controls.right.style.display = "none";
-                }
-                this.controls.left.style.display = "block";
+                this.setControlBtnsDisplay()
             }
         });
         this.addTouchingEvent();
+    }
+    setControlBtnsDisplay() {
+        if (this.index === 0) {
+            this.controls.left.style.display = "none";
+            this.controls.right.style.display = "block";
+        }else if(this.index === this.maxIndex){
+            this.controls.right.style.display = "none";
+            this.controls.left.style.display = "block";
+        }else{
+            this.controls.left.style.display = "block";
+            this.controls.right.style.display = "block";
+        }
     }
     addTouchingEvent() {
         let isHorizontal = false;
@@ -105,17 +111,16 @@ export class Carousel {
                 isHorizontal = false;
                 this.containerInner.getBoundingClientRect();
 
-                
                 if (deltaX < -20) {
-                    if(this.index<this.maxIndex)this.moveRight();
+                    if (this.index < this.maxIndex) this.moveRight();
                     else this.setTransform();
-                    
                 } else if (deltaX > 20) {
-                    if(this.index>0)this.moveLeft();
+                    if (this.index > 0) this.moveLeft();
                     else this.setTransform();
                 } else {
                     this.setTransform();
                 }
+                this.setControlBtnsDisplay()
             },
             false,
         );

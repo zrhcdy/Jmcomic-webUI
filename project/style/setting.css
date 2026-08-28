@@ -25,6 +25,7 @@
 .option a{
     color: #5e2739;
     margin-left: 20px;
+    word-break: break-all;
 }
 @media screen and (max-width:800px){
     .setting-body{
