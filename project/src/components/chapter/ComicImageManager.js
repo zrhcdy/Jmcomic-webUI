@@ -1,5 +1,6 @@
 import { jmApi } from "../../api/JmcomicApi.js";
 import { ComicImageLoader } from "./ComicImageLoader.js";
+import { ComicMobileProgress } from "./ComicMobileProgress.js";
 import { ComicReadingProgress } from "./ComicReadingProgress.js";
 
 export class ComicImageManager {
@@ -7,6 +8,8 @@ export class ComicImageManager {
     containerHead;
     imagesContainer;
     loader;
+    progress;
+    mobProgress
     constructor() {
         const comicContentCr = document.querySelector(".comic-content-cr");
         const head = comicContentCr.querySelector(".cr-head");
@@ -19,6 +22,8 @@ export class ComicImageManager {
         this.loader = new ComicImageLoader(chapter.id);
         this.progress = new ComicReadingProgress();
         this.progress.init(this.chapter.images.length-1);
+        this.mobProgress = new ComicMobileProgress();
+        this.mobProgress.init(this.chapter.images.length-1);
         this.imagesContainer.innerHTML = this.#getImageContainerHTML(
             this.chapter.images,
         );
@@ -28,6 +33,8 @@ export class ComicImageManager {
         }
         this.loader.onIndexUpdate = (index) => {
             this.progress.setProgress(index);
+            this.mobProgress.setProgress(index);
+            this.mobProgress.drawCvs(index);
         };
         this.loader.onLoadedImage=(count)=>{
             this.containerHead.textContent=`图集（${count}/${chapter.images.length}）`

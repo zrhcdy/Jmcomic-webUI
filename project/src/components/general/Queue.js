@@ -8,8 +8,9 @@ export class Queue {
         return this.arr.length < this.maxLength;
     }
     add(item) {
+        if (this.arr.length >= this.maxLength) this.arr.pop();
+
         this.arr.push(item);
-        if (this.arr.length > this.maxLength) this.arr.shift();
     }
     getItem(index) {
         return this.arr[index];

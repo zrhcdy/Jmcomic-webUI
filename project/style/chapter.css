@@ -82,7 +82,7 @@
     cursor: pointer;
     flex-shrink: 0;
 }
-.add-favorite{
+.add-favorite {
     width: 150px;
     height: 60px;
     font-size: 20px;
@@ -218,13 +218,13 @@
     height: auto;
     padding: 10px;
 }
-.comment-scroll-cr{
+.comment-scroll-cr {
     width: 100%;
     height: 340px;
     overflow-y: hidden;
 }
-.comment-scroll-cr.show-more{
-    height:450px;
+.comment-scroll-cr.show-more {
+    height: 450px;
     overflow-y: scroll;
 }
 .comment-item {
@@ -381,19 +381,36 @@
     text-overflow: ellipsis;
     word-break: break-all;
 }
+.m-progress-cr {
+    display: none;
+    position: absolute;
+    top: 150px;
+    right: 25px;
+    width: 0;
+    height: 100%;
+}
 .m-progress {
     position: sticky;
     top: 200px;
-    float: right;
-    width: 20px;
-    height: 120px;
-    background-color: #e4396c;
+    width: 25px;
+    height: 200px;
+    background-color: #feb4ca;
+    border: 1px solid #ff84a9;
     border-radius: 5px 0 0 5px;
     z-index: 10;
-    margin-top: -120px;
-    transform: translateY(200px);
 }
 .m-progress-inner {
+    position: absolute;
+    right: 100%;
+    width: 40px;
+    top: 30%;
+    color: #b20e0e;
+    text-shadow: 1px 1px 1px #ffffff;
+}
+.progress-cvs{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px 0 0 5px;
 }
 .progress-cr {
     position: sticky;
@@ -402,6 +419,7 @@
     height: auto;
     user-select: none;
 }
+
 .progress {
     position: relative;
     width: 30px;
@@ -482,11 +500,14 @@
     .mob-det-info {
         display: block;
     }
-    .series{
+    .series {
         margin-top: 0;
     }
-    .comic-content-cr{
+    .comic-content-cr {
         margin-top: 0;
+    }
+    .m-progress-cr{
+        display: block;
     }
 }
 @media screen and (max-width: 680px) {
@@ -522,7 +543,8 @@
     .jm-id > span {
         font-size: 30px !important;
     }
-    .add-favorite,.start-read{
+    .add-favorite,
+    .start-read {
         width: 120px;
         font-size: 18px;
     }
@@ -546,17 +568,18 @@
     .jm-id > span {
         font-size: 25px !important;
     }
-    .actions{
+    .actions {
         width: calc(100% - 20px);
     }
-    .add-favorite,.start-read{
+    .add-favorite,
+    .start-read {
         width: 50%;
         height: 50px;
         line-height: 50px;
         font-size: 16px;
         flex-shrink: auto;
     }
-    .add-favorite{
+    .add-favorite {
         margin-left: 5px;
     }
 }
