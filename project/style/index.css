@@ -147,10 +147,22 @@
     padding: 10px 7%;
     color: #422731;
 }
+.s-title span::before {
+    content: "";
+    position: absolute;
+    width: 120%;
+    height: 20px;
+    bottom: 0;
+    background-color: #ff7d9a;
+}
 .s-title span{
+    position: relative;
     display: inline-block;
     font-size: 40px;
     font-weight: 500;
+}
+.s-title p{
+    position: relative;
 }
 .s-sr-title{
     display: inline-block;

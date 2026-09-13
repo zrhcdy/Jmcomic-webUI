@@ -64,7 +64,7 @@ export class HeadManager {
         mobTagsDom.innerHTML = this.album.tags
             .map(
                 (tagName) => `
-            <div class="tag">${tagName}</div>
+            <a href="./search.html?sq=${tagName}" target="_blank" class="tag">${tagName}</a>
         `,
             )
             .join("");

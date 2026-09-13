@@ -30,8 +30,9 @@ export class RecommendationsManager {
             let section = `
                 <div class="section">
                     <div class="s-title">
-                        <span>${sectionData.title.length>10?sectionData.title.substring(0,4):sectionData.title}</span>
-                        <h2 class="s-sr-title">${sectionData.slug}</h2>
+                        <span>
+                            <p>${sectionData.title.length>10?sectionData.title.substring(0,4):sectionData.title}</p>
+                        </span>
                     </div>
                     <div class="sec-comics">
                         <div class="sc-inner">

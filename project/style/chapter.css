@@ -23,6 +23,7 @@
     object-fit: contain;
 }
 .comic-info {
+    width: 100%;
     position: relative;
     padding-left: 20px;
     padding-bottom: 80px;

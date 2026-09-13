@@ -19,6 +19,7 @@ export class SwitchServerBtnManager{
             this.serverBtnDoms[i].addEventListener("click",()=>{
                 this.setServer(i)
                 setting.setOption("using_imgserver_index",i)
+                location.reload()
             })
         }
     }
