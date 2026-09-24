@@ -4,7 +4,7 @@ import { CategoriesContainerManager } from "../components/categories/CategoriesC
 import { CategoriesHeadManager } from "../components/categories/CategoriesHeadManager.js";
 import { NavManager } from "../components/general/NavManager.js";
 import { setting } from "../components/general/Setting.js";
-
+import { SwitchServerBtnManager } from "../components/general/SwitchServerBtnManager.js";
 class CategoriesPage {
     navManager
     constructor() {}
@@ -13,7 +13,8 @@ class CategoriesPage {
         await jmApi.init();
         this.navManager=new NavManager()
         this.navManager.init()
-
+        this.switchServerBtnManager = new SwitchServerBtnManager();
+        this.switchServerBtnManager.init()
         this.categoriesHeadManager=new CategoriesHeadManager()
         this.categoriesHeadManager.init()
 

@@ -456,6 +456,51 @@
     left: 0;
     /* animation: hotter 2s ease infinite alternate; */
 }
+.loading-sakura {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(138, 122, 128, 0.5);
+    z-index:100;
+}
+.loading-sakura .sakura-icon{
+    width: 120px;
+    height: 120px;
+    fill: #ff7db1;
+}
+@keyframes path {
+    from{
+        opacity:0;
+    }
+    to{
+        opacity:1;
+    }
+}
+.sakura-icon g path:nth-child(1){
+    animation: path 0.7s linear alternate-reverse infinite;
+    animation-delay: 0s;
+}
+.sakura-icon g path:nth-child(2){
+    animation: path 0.7s linear alternate-reverse infinite;
+    animation-delay: 0.1s;
+}
+.sakura-icon g path:nth-child(3){
+    animation: path 0.7s linear alternate-reverse infinite;
+    animation-delay: 0.2s;
+}
+.sakura-icon g path:nth-child(4){
+    animation: path 0.7s linear alternate-reverse infinite;
+    animation-delay: 0.3s;
+}
+.sakura-icon g path:nth-child(5){
+    animation: path 0.7s linear alternate-reverse infinite;
+    animation-delay: 0.4s;
+}
 @media screen and (max-width: 1200px) {
     .head {
         width: 1000px;

@@ -46,7 +46,7 @@ export class SectionCarousel extends Carousel {
         let count
         let gap=10
         console.log(innerWidth)
-        if(parentNode.offsetWidth>540){
+        if(innerWidth>540){
             count = Math.floor((parentNode.offsetWidth * 0.85 + 10) / (iWidth+10));
         }else{
             count = 3

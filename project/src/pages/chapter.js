@@ -62,6 +62,7 @@ class ChapterPage {
                 history.pop()
             }
             localStorage.setItem("history", JSON.stringify(history));
+            document.querySelector(".loading-sakura").remove();
         });
 
         jmApi.getComicChapter(this.id).then((chapter) => {
