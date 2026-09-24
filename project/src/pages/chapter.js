@@ -63,6 +63,9 @@ class ChapterPage {
             }
             localStorage.setItem("history", JSON.stringify(history));
             document.querySelector(".loading-sakura").remove();
+            document.querySelector("#wx-title").setAttribute("content", album.name);
+            document.querySelector("#wx-description").setAttribute("content", "Yuan "+album.author.join(" "));
+            document.querySelector("#wx-image").setAttribute("content", jmApi.getCoverImageURL(album.id));
         });
 
         jmApi.getComicChapter(this.id).then((chapter) => {
