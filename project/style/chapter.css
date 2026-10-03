@@ -1,11 +1,11 @@
 .root {
-    background: linear-gradient(120deg, #ffa8c2 0, transparent 700px);
+    background: linear-gradient(120deg, var(--theme-border-light) 0, transparent 700px);
 }
 .head {
     display: flex;
     width: 1100px;
     height: auto;
-    background-color: #ffebf1;
+    background-color: var(--theme-card-bg);
     margin: 20px auto;
     margin-bottom: 10px;
     padding: 20px;
@@ -54,8 +54,8 @@
     display: block;
     padding: 3px 10px;
     font-size: 12px;
-    color: #ffebf1;
-    background-color: #ff7aa2;
+    color: var(--theme-text-on-accent);
+    background-color: var(--theme-accent-main);
     border-radius: 20px;
     margin-top: 10px;
     margin-right: 10px;
@@ -75,8 +75,8 @@
     width: 150px;
     height: 60px;
     font-size: 20px;
-    color: #ffffff;
-    background-color: #ff7aa2;
+    color: var(--theme-text-inverse);
+    background-color: var(--theme-accent-main);
     text-align: center;
     line-height: 60px;
     border-radius: 10px;
@@ -87,8 +87,8 @@
     width: 150px;
     height: 60px;
     font-size: 20px;
-    color: #ffffff;
-    background-color: #ff7aa2;
+    color: var(--theme-text-inverse);
+    background-color: var(--theme-accent-main);
     text-align: center;
     line-height: 60px;
     border-radius: 10px;
@@ -110,14 +110,14 @@
 .mob-det-info {
     display: none;
     padding: 20px;
-    background-color: #ffebf1;
-    border-top: 1px solid #ffa8c2;
+    background-color: var(--theme-card-bg);
+    border-top: 1px solid var(--theme-border-light);
 }
 .evaluation {
     display: flex;
     width: 100%;
     height: 80px;
-    background-color: #ffebf1;
+    background-color: var(--theme-card-bg);
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
@@ -132,7 +132,7 @@
     align-items: center;
 }
 .evaluation .jm-id span {
-    color: #ff7aa2;
+    color: var(--theme-accent-main);
     font-size: 35px;
     font-weight: 900;
 }
@@ -161,7 +161,7 @@
 }
 .series {
     width: 100%;
-    background-color: #ffebf1;
+    background-color: var(--theme-card-bg);
     margin-top: 10px;
     padding: 20px;
 }
@@ -186,8 +186,8 @@
 .series-item {
     width: 70px;
     height: 38px;
-    color: #ff7aa2;
-    border: 1px solid #ff7aa2;
+    color: var(--theme-accent-main);
+    border: 1px solid var(--theme-accent-main);
     border-radius: 5px;
     line-height: 40px;
     text-align: center;
@@ -195,14 +195,14 @@
     text-decoration: none;
 }
 .series-item.active {
-    background-color: #ff7aa2;
-    color: #ffebf1;
+    background-color: var(--theme-accent-main);
+    color: var(--theme-text-on-accent);
 }
 .comment {
     position: relative;
     width: 100%;
     height: auto;
-    background-color: #ffebf1;
+    background-color: var(--theme-card-bg);
     margin-top: 10px;
     padding: 20px;
     /* overflow-y: scroll; */
@@ -231,7 +231,7 @@
 .comment-item {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid #ffa8c2;
+    border-bottom: 1px solid var(--theme-border-light);
     padding: 10px 0;
     gap: 10px;
     margin-top: 10px;
@@ -270,13 +270,13 @@
     bottom: 0;
     width: 250px;
     height: 40px;
-    color: #ff9900;
+    color: var(--theme-warning);
     font-size: 20px;
     text-align: center;
     line-height: 40px;
     background: radial-gradient(
         circle at center,
-        rgb(255, 223, 174) 0%,
+        var(--theme-warning-bg) 0%,
         transparent 100%
     );
     cursor: pointer;
@@ -288,8 +288,8 @@
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    background-color: #ff7aa2;
-    color: #ffffff;
+    background-color: var(--theme-accent-main);
+    color: var(--theme-text-inverse);
 }
 .comic-img-cr {
     width: 100%;
@@ -301,7 +301,7 @@
     position: relative;
     width: 100%;
     /* height: 500px; */
-    background-color: #999999;
+    background-color: var(--theme-image-bg);
     transition: height 0.3s ease;
 }
 .comic-img span {
@@ -310,7 +310,7 @@
     top: calc(50% - 20px);
     width: 200px;
     height: 40px;
-    color: #ffffff;
+    color: var(--theme-text-inverse);
     text-align: center;
     line-height: 40px;
     font-size: 30px;
@@ -332,7 +332,7 @@
 }
 .recommended-comics {
     width: 100%;
-    background-color: #ffebf1;
+    background-color: var(--theme-card-bg);
     padding: 10px;
 }
 .rc-title {
@@ -395,8 +395,8 @@
     top: 200px;
     width: 25px;
     height: 200px;
-    background-color: #feb4ca;
-    border: 1px solid #ff84a9;
+    background-color: var(--theme-progress-bg);
+    border: 1px solid var(--theme-progress-border);
     border-radius: 5px 0 0 5px;
     z-index: 10;
 }
@@ -405,8 +405,8 @@
     right: 100%;
     width: 40px;
     top: 30%;
-    color: #b20e0e;
-    text-shadow: 1px 1px 1px #ffffff;
+    color: var(--theme-danger);
+    text-shadow: 1px 1px 1px var(--theme-text-inverse);
 }
 .progress-cvs{
     width: 100%;
@@ -425,7 +425,7 @@
     position: relative;
     width: 30px;
     height: 120px;
-    border: 1px solid #000000;
+    border: 1px solid var(--theme-progress-frame);
     border-radius: 5px;
     margin-top: 10px;
     z-index: 10;
@@ -436,7 +436,7 @@
     align-items: end;
     width: 100%;
     height: 39%;
-    border-bottom: 1px solid #ff7aa2;
+    border-bottom: 1px solid var(--theme-accent-main);
     padding-left: 100%;
 }
 .progress-inner span {
@@ -465,13 +465,13 @@
     top:0;
     width: 100%;
     height: 100%;
-    background-color: rgba(138, 122, 128, 0.5);
+    background-color: var(--theme-loading-overlay);
     z-index:100;
 }
 .loading-sakura .sakura-icon{
     width: 120px;
     height: 120px;
-    fill: #ff7db1;
+    fill: var(--theme-accent-bright);
 }
 @keyframes path {
     from{
@@ -534,7 +534,7 @@
         width: 100%;
     }
     .evaluation {
-        background-color: #ffcddc;
+        background-color: var(--theme-primary-wash);
     }
     .comment,
     .head {
@@ -567,7 +567,7 @@
     }
     .head > .cover img {
         border-radius: 5px;
-        box-shadow: 5px 5px 5px #ffa8c2;
+        box-shadow: 5px 5px 5px var(--theme-border-light);
     }
     .head > .title {
         font-size: 25px;

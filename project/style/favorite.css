@@ -4,7 +4,7 @@
 }
 .b-title{
     font-size: 35px;
-    color: #ff77a5;
+    color: var(--theme-text-title);
     font-weight: 400;
 }
 .favorite-cr{
@@ -56,9 +56,9 @@
     /* height: 16px; */
     padding: 3px 6px;
     font-size: 10px;
-    background-color: #F48FB1;
+    background-color: var(--theme-primary);
     border-radius: 13px;
-    color: #ffffff;
+    color: var(--theme-text-inverse);
 }
 .c-title{
     width: 100%;

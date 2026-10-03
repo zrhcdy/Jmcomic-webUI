@@ -16,6 +16,13 @@
         <link rel="stylesheet" href="./style/chapter.css" />
     </head>
     <body>
+        <script>
+            // 应用已保存的主题，避免页面先以默认主题渲染再变色
+            (function () {
+                const theme = localStorage.getItem("app_theme");
+                if (theme) document.documentElement.classList.add(theme + "-theme");
+            })();
+        </script>
         <div class="root">
             <nav class="nav">
                 <div class="page-list-btn">

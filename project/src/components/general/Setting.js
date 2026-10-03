@@ -1,10 +1,12 @@
 class Setting{
     #settingValues={
-        using_imgserver_index:["0","1","2","3","4","5"]
+        using_imgserver_index:["0","1","2","3","4","5"],
+        app_theme:["pink","blue","green","purple","gray","dark"]
     }
 
     #options={
-        using_imgserver_index:"0"
+        using_imgserver_index:"0",
+        app_theme:"pink"
     }
     constructor(){
 
@@ -30,6 +32,9 @@ class Setting{
     }
     get using_imgserver_index(){
         return this.#options.using_imgserver_index
+    }
+    get app_theme(){
+        return this.#options.app_theme
     }
 }
 export const setting=new Setting()

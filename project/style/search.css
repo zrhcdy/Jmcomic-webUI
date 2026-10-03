@@ -4,7 +4,7 @@
 }
 .b-title{
     font-size: 35px;
-    color: #ff77a5;
+    color: var(--theme-text-title);
     font-weight: 400;
 }
 .sort-item{
@@ -12,8 +12,8 @@
     width: 200px;
     height: 40px;
     border-radius: 5px;
-    background-color: #ffabc7;
-    color: #ffffff;
+    background-color: var(--theme-accent-pale);
+    color: var(--theme-text-inverse);
     font-size: 20px;
     font-weight: 400;
     line-height: 40px;
@@ -69,9 +69,9 @@
     /* height: 16px; */
     padding: 3px 6px;
     font-size: 10px;
-    background-color: #F48FB1;
+    background-color: var(--theme-primary);
     border-radius: 13px;
-    color: #ffffff;
+    color: var(--theme-text-inverse);
 }
 .c-title{
     width: 100%;

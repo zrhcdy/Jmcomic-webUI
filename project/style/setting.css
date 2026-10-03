@@ -6,11 +6,11 @@
     font-size: 35px;
     font-weight: 400;
     margin-top: 20px;
-    color: #ff77a5;
+    color: var(--theme-text-title);
 }
 .options{
     height: auto;
-    border-left: 5px solid #ff77a5;
+    border-left: 5px solid var(--theme-text-title);
     margin-top: 10px;
 }
 .option{
@@ -20,10 +20,10 @@
     align-items: center;
     padding-left: 20px;
     font-size: 20px;
-    color: #5e2739;
+    color: var(--theme-text-option);
 }
 .option a{
-    color: #5e2739;
+    color: var(--theme-text-option);
     margin-left: 20px;
     word-break: break-all;
 }
@@ -37,4 +37,61 @@
         flex-wrap: wrap;
         height: 80px;
     }
+}
+/* 主题切换 */
+/* 色卡颜色是各主题自身的标识色，用于预览，固定不随当前主题变化 */
+[data-theme="pink"]{
+    --theme-swatch: #f8bbd0;
+}
+[data-theme="blue"]{
+    --theme-swatch: #bcdcf5;
+}
+[data-theme="green"]{
+    --theme-swatch: #bdebd5;
+}
+[data-theme="purple"]{
+    --theme-swatch: #d9c6f5;
+}
+[data-theme="gray"]{
+    --theme-swatch: #b8b8b8;
+}
+[data-theme="dark"]{
+    --theme-swatch: #3a2830;
+}
+.option.theme-option{
+    height: auto;
+    min-height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.theme-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: 20px;
+}
+.theme-item{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--theme-border);
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .3s,color .3s;
+}
+.theme-item:hover,
+.theme-item.active{
+    background-color: var(--theme-border);
+    color: var(--theme-text-inverse);
+}
+.theme-dot{
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background-color: var(--theme-swatch);
+    box-shadow: 0 0 0 1px var(--theme-text-inverse);
 }
