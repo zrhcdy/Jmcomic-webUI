@@ -110,22 +110,3 @@
         0 0 14px var(--theme-text-title);
     animation: slogan-glow 2.4s ease-in-out infinite;
 }
-/* 呼吸式发光：在内层光晕与外层光晕之间来回过渡 */
-@keyframes slogan-glow{
-    0%,100%{
-        text-shadow:
-            0 0 6px var(--theme-text-title),
-            0 0 14px var(--theme-text-title);
-    }
-    50%{
-        text-shadow:
-            0 0 8px var(--theme-text-title),
-            0 0 20px var(--theme-text-title),
-            0 0 34px var(--theme-text-title);
-    }
-}
-@media (prefers-reduced-motion: reduce){
-    .slogan{
-        animation: none;
-    }
-}

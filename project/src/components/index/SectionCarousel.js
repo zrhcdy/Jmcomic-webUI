@@ -8,7 +8,7 @@ export class SectionCarousel extends Carousel {
         super();
     }
     init(secComic) {
-        console.log(secComic.parentNode);
+        // console.log(secComic.parentNode);
         
         super.init(
             secComic,
@@ -45,7 +45,7 @@ export class SectionCarousel extends Carousel {
         let iWidth=this.containerInner.children[0].offsetWidth
         let count
         let gap=10
-        console.log(innerWidth)
+        // console.log(innerWidth)
         if(parentNode.offsetWidth>540){
             count = Math.floor((parentNode.offsetWidth * 0.85 + 10) / (iWidth+10));
         }else{

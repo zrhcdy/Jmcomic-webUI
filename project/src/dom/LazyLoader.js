@@ -1,3 +1,5 @@
+import { jmApi } from "../api/JmcomicApi.js";
+
 class LazyLoader {
     observer;
     constructor() {
@@ -21,7 +23,7 @@ class LazyLoader {
         let retryCount=0
         img.onerror=()=>{
             img.src = null;
-            img.src = coverEle.dataset.src;
+            img.src = coverEle.dataset.id?jmApi.getCoverImageURL(coverEle.dataset.id,retryCount):coverEle.dataset.src;
             retryCount++;
             if (retryCount >= 5) {
                 img.onerror=null

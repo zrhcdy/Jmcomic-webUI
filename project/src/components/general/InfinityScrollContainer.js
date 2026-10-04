@@ -52,7 +52,7 @@ export class InfinityScrollContainer {
             return;
         
         let bottom = this.getBottom()
-        console.log(bottom);
+        // console.log(bottom);
         
         if (bottom < this.threshold) {
             this.loadContent(++this.pageIndex).then(

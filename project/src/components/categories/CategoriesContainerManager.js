@@ -52,7 +52,7 @@ export class CategoriesContainerManager{
         let sps=this.slug+page+this.searchMode
         let list=await jmApi.getCategoriesFilter(this.slug,page,this.searchMode)
         //check if the slug and page are still the same, if not, return
-        console.log(this.slug,page,this.searchMode,sps);
+        // console.log(this.slug,page,this.searchMode,sps);
         
         if(this.slug+page+this.searchMode!==sps)return
 

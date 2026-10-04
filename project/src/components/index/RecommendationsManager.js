@@ -55,7 +55,7 @@ export class RecommendationsManager {
         return data.map(
             (c) => `
             <div class="comic-item">
-                <a class="cover" data-src="${jmApi.getCoverImageURL(c.id)}" href="./chapter.html?id=${c.id}">
+                <a class="cover" data-id="${c.id}" data-src="${jmApi.getCoverImageURL(c.id)}" href="./chapter.html?id=${c.id}">
                     <img alt="封面"/>
                     <div class="tags"></div>
                 </a>

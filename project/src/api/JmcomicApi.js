@@ -313,8 +313,8 @@ class JmcomicApi {
      * @param {string|number} id - 漫画ID
      * @returns {string} 完整的封面图片URL
      */
-    getCoverImageURL(id) {
-        return `https://${this.imgServers[id % 5]}/media/albums/${id}_3x4.jpg`;
+    getCoverImageURL(id, retryCount=0) {
+        return `https://${this.imgServers[(id + retryCount) % 5]}/media/albums/${id}_3x4.jpg`;
     }
     
     /**
