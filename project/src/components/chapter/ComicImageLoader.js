@@ -1,6 +1,7 @@
 import { jmApi } from "../../api/JmcomicApi.js";
 import { ImageCutter } from "../general/ImageCutter.js";
 import { Queue } from "../general/Queue.js";
+import { setting } from "../general/Setting.js";
 
 export class ComicImageLoader {
     intersectionObserver;
@@ -46,7 +47,7 @@ export class ComicImageLoader {
                     }
                 }
             },
-            { rootMargin: "50px" },
+            { rootMargin: setting.root_margin },
         );
         this.cutter = new ImageCutter();
         this.maxQueueLength=this.getMaxQueueLength()

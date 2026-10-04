@@ -1,12 +1,14 @@
 class Setting{
     #settingValues={
         using_imgserver_index:["0","1","2","3","4","5"],
-        app_theme:["pink","blue","green","purple","gray","dark"]
+        app_theme:["pink","blue","green","purple","gray","dark"],
+        root_margin:["0px","50px","100px","200px","500px"]
     }
 
     #options={
         using_imgserver_index:"0",
-        app_theme:"pink"
+        app_theme:"pink",
+        root_margin:"50px"
     }
     constructor(){
 
@@ -14,7 +16,7 @@ class Setting{
     init(){
         for(let key in this.#settingValues){
             let value=localStorage.getItem(key)
-            if(value===null)return
+            if(value===null)continue
             if(this.#settingValues[key].includes(value)){
                 this.#options[key]=value
             }else{
@@ -35,6 +37,9 @@ class Setting{
     }
     get app_theme(){
         return this.#options.app_theme
+    }
+    get root_margin(){
+        return this.#options.root_margin
     }
 }
 export const setting=new Setting()

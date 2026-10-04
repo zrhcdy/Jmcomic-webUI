@@ -15,10 +15,10 @@
 }
 .option{
     width: 100%;
-    height: 50px;
+    height: auto;
     display: flex;
     align-items: center;
-    padding-left: 20px;
+    padding: 15px 20px;
     font-size: 20px;
     color: var(--theme-text-option);
 }
@@ -31,11 +31,8 @@
     .setting-body{
         width: 90%;
     }
-}
-@media screen and (max-width:600px){
     .option{
         flex-wrap: wrap;
-        height: 80px;
     }
 }
 /* 主题切换 */
@@ -58,19 +55,24 @@
 [data-theme="dark"]{
     --theme-swatch: #3a2830;
 }
-.option.theme-option{
-    height: auto;
-    min-height: 50px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.option img{
+    display: block;
+    margin: auto;
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
 }
-.theme-list{
+/* 设置项选择器（主题配色、图片预加载边距共用） */
+.theme-list,
+.margin-list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-left: 20px;
 }
-.theme-item{
+.theme-item,
+.margin-item{
     display: flex;
     align-items: center;
     gap: 6px;
@@ -83,7 +85,9 @@
     transition: background-color .3s,color .3s;
 }
 .theme-item:hover,
-.theme-item.active{
+.theme-item.active,
+.margin-item:hover,
+.margin-item.active{
     background-color: var(--theme-border);
     color: var(--theme-text-inverse);
 }
@@ -94,4 +98,34 @@
     border-radius: 50%;
     background-color: var(--theme-swatch);
     box-shadow: 0 0 0 1px var(--theme-text-inverse);
+}
+.slogan{
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--theme-text-title);
+    text-shadow:
+        0 0 6px var(--theme-text-title),
+        0 0 14px var(--theme-text-title);
+    animation: slogan-glow 2.4s ease-in-out infinite;
+}
+/* 呼吸式发光：在内层光晕与外层光晕之间来回过渡 */
+@keyframes slogan-glow{
+    0%,100%{
+        text-shadow:
+            0 0 6px var(--theme-text-title),
+            0 0 14px var(--theme-text-title);
+    }
+    50%{
+        text-shadow:
+            0 0 8px var(--theme-text-title),
+            0 0 20px var(--theme-text-title),
+            0 0 34px var(--theme-text-title);
+    }
+}
+@media (prefers-reduced-motion: reduce){
+    .slogan{
+        animation: none;
+    }
 }

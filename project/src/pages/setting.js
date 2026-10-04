@@ -17,19 +17,29 @@ const THEMES = [
     { value: "dark", label: "深色" },
 ];
 
+/**
+ * 可选图片预加载边距（IntersectionObserver 的 rootMargin）
+ * value 必须与 Setting.js 中 root_margin 的可选值保持一致
+ */
+const ROOT_MARGINS = ["0px", "50px", "100px", "200px", "500px"];
+
 class SettingPage {
     navManager;
     switchServerBtnManager;
     themeListDom;
     themeItemDoms;
     activeTheme;
+    marginListDom;
+    marginItemDoms;
+    activeRootMargin;
     constructor() {}
     async init() {
         setting.init();
 
-        // 初始化主题切换：只依赖本地设置与静态DOM，放在网络请求之前，
-        // 避免接口等待期间页面先以默认主题渲染再变色
+        // 初始化设置项：只依赖本地设置与静态DOM，放在网络请求之前，
+        // 避免接口等待期间页面先以默认值渲染再变化
         this.#initTheme();
+        this.#initRootMargin();
 
         await jmApi.init();
         this.navManager=new NavManager()
@@ -39,15 +49,9 @@ class SettingPage {
     }
 
     /**
-     * 初始化主题：补齐设置项、生成主题元素、恢复已保存主题并绑定交互
+     * 初始化主题：生成主题元素、恢复已保存主题并绑定交互
      */
     #initTheme() {
-        // Setting.init() 遍历配置项时只要有一项在 localStorage 中不存在就会提前 return，
-        // 因此 app_theme 有可能没被读取到。这里先把图源配置补齐再 init 一次，
-        // 保证主题设置能被正确加载（图源值取自已加载的设置，不会覆盖已有配置）
-        setting.setOption("using_imgserver_index", setting.using_imgserver_index);
-        setting.init();
-
         this.#createThemeOption();
         this.selectTheme(setting.app_theme, true);
         this.#addThemeEvent();
@@ -116,6 +120,59 @@ class SettingPage {
             item.classList.toggle("active", item.dataset.theme === theme);
         });
         this.activeTheme = theme;
+    }
+
+    /**
+     * 初始化图片预加载边距：生成选项、恢复已保存值并绑定交互
+     */
+    #initRootMargin() {
+        this.#createMarginOption();
+        this.#updateActiveMargin(setting.root_margin);
+        this.#addMarginEvent();
+    }
+
+    /**
+     * 填充 setting.html 中 .margin-list 的选项元素
+     */
+    #createMarginOption() {
+        const marginListDom = document.querySelector(
+            ".setting-body .margin-list",
+        );
+        marginListDom.innerHTML = ROOT_MARGINS.map(
+            (margin) =>
+                `<div class="margin-item" data-margin="${margin}">${margin}</div>`,
+        ).join("");
+
+        this.marginListDom = marginListDom;
+        this.marginItemDoms = marginListDom.querySelectorAll(".margin-item");
+    }
+
+    #addMarginEvent() {
+        this.marginListDom.addEventListener("click", (e) => {
+            const marginItemDom = e.target.closest(".margin-item");
+            if (!marginItemDom) return;
+            this.selectRootMargin(marginItemDom.dataset.margin);
+        });
+    }
+
+    /**
+     * 选择图片预加载边距：写入本地设置并更新选中态
+     * 边距在 IntersectionObserver 创建后无法修改，需在章节页下一次加载时生效
+     * @param {string} margin 边距值，取值见 ROOT_MARGINS
+     */
+    selectRootMargin(margin) {
+        if (!ROOT_MARGINS.includes(margin)) return;
+        if (margin === this.activeRootMargin) return;
+
+        setting.setOption("root_margin", margin);
+        this.#updateActiveMargin(margin);
+    }
+
+    #updateActiveMargin(margin) {
+        this.marginItemDoms.forEach((item) => {
+            item.classList.toggle("active", item.dataset.margin === margin);
+        });
+        this.activeRootMargin = margin;
     }
 }
 const app = new SettingPage();
