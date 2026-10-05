@@ -23,6 +23,16 @@ const THEMES = [
  */
 const ROOT_MARGINS = ["0px", "50px", "100px", "200px", "500px"];
 
+/**
+ * 并发请求开关
+ * value 必须与 Setting.js 中 concurrent_request 的可选值保持一致
+ * 开启后 retryFetch 会同时请求所有服务器，只保留最快返回的那个，其余立刻取消
+ */
+const CONCURRENT_REQUESTS = [
+    { value: "off", label: "关闭" },
+    { value: "on", label: "开启" },
+];
+
 class SettingPage {
     navManager;
     switchServerBtnManager;
@@ -32,6 +42,9 @@ class SettingPage {
     marginListDom;
     marginItemDoms;
     activeRootMargin;
+    concurrentListDom;
+    concurrentItemDoms;
+    activeConcurrentRequest;
     constructor() {}
     async init() {
         setting.init();
@@ -40,6 +53,7 @@ class SettingPage {
         // 避免接口等待期间页面先以默认值渲染再变化
         this.#initTheme();
         this.#initRootMargin();
+        this.#initConcurrentRequest();
 
         await jmApi.init();
         this.navManager=new NavManager()
@@ -173,6 +187,66 @@ class SettingPage {
             item.classList.toggle("active", item.dataset.margin === margin);
         });
         this.activeRootMargin = margin;
+    }
+
+    /**
+     * 初始化并发请求开关：生成选项、恢复已保存值并绑定交互
+     */
+    #initConcurrentRequest() {
+        this.#createConcurrentOption();
+        this.#updateActiveConcurrentRequest(setting.concurrent_request);
+        this.#addConcurrentEvent();
+    }
+
+    /**
+     * 在 .options 中追加并发请求选择元素
+     */
+    #createConcurrentOption() {
+        const concurrentListDom = document.createElement("div");
+        concurrentListDom.className = "concurrent-list";
+        concurrentListDom.innerHTML = CONCURRENT_REQUESTS.map(
+            (item) =>
+                `<div class="concurrent-item" data-concurrent="${item.value}">${item.label}</div>`,
+        ).join("");
+
+        const optionDom = document.createElement("div");
+        optionDom.className = "option concurrent-option";
+        optionDom.innerHTML = `<span title="同时向所有服务器发起请求，只保留最快返回的那个，其余立刻取消（会成倍增加请求量）">并发请求: </span>`;
+        optionDom.appendChild(concurrentListDom);
+
+        document.querySelector(".setting-body .options").appendChild(optionDom);
+
+        this.concurrentListDom = concurrentListDom;
+        this.concurrentItemDoms =
+            concurrentListDom.querySelectorAll(".concurrent-item");
+    }
+
+    #addConcurrentEvent() {
+        this.concurrentListDom.addEventListener("click", (e) => {
+            const concurrentItemDom = e.target.closest(".concurrent-item");
+            if (!concurrentItemDom) return;
+            this.selectConcurrentRequest(concurrentItemDom.dataset.concurrent);
+        });
+    }
+
+    /**
+     * 选择是否并发请求：写入本地设置并更新选中态
+     * 每次发起请求时都会重新读取该设置，所以无需刷新页面即可生效
+     * @param {string} value "off" 或 "on"，取值见 CONCURRENT_REQUESTS
+     */
+    selectConcurrentRequest(value) {
+        if (!CONCURRENT_REQUESTS.some((item) => item.value === value)) return;
+        if (value === this.activeConcurrentRequest) return;
+
+        setting.setOption("concurrent_request", value);
+        this.#updateActiveConcurrentRequest(value);
+    }
+
+    #updateActiveConcurrentRequest(value) {
+        this.concurrentItemDoms.forEach((item) => {
+            item.classList.toggle("active", item.dataset.concurrent === value);
+        });
+        this.activeConcurrentRequest = value;
     }
 }
 const app = new SettingPage();

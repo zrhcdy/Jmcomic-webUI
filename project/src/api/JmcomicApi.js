@@ -77,8 +77,11 @@ class JmcomicApi {
      * @returns {Promise<Response>} 请求响应对象
      */
     async retryFetch(getUrl, init, count) {
+        // 并发分支只对「按序号拼出不同服务器地址」的调用生效：
+        // 传固定 URL 的调用（例如图片下载）每次重试都是同一个地址，并发没有意义
+        const isMultiServer = typeof getUrl === "function";
         // 如果getUrl是字符串，则将其转换为返回该字符串的函数
-        if (typeof getUrl === "string") {
+        if (!isMultiServer) {
             let url = getUrl;
             getUrl = () => url;
         }
@@ -86,6 +89,10 @@ class JmcomicApi {
         if (typeof init === "number") {
             count = init;
             init = {};
+        }
+        // 并发模式：同时请求所有服务器，谁先回来用谁，其余的立刻取消
+        if (isMultiServer && count > 1 && setting.concurrent_request === "on") {
+            return this.#concurrentFetch(getUrl, init, count);
         }
         try {
             const resp = await fetch(getUrl(count - 1), init);
@@ -95,6 +102,42 @@ class JmcomicApi {
             if (count <= 0) throw new Error(error);
             // 否则递归调用retryFetch，减少重试次数
             return this.retryFetch(getUrl, init, count - 1);
+        }
+    }
+
+    /**
+     * 并发请求：把所有候选服务器一次全发出去，取第一个成功返回的，其余立即取消
+     * 尝试的序号与顺序重试分支完全一致（count-1 一路递减到 -1），
+     * 区别只是从「一个失败再试下一个」变成「同时发出、取最快的那个」
+     * @param {Function} getUrl - 接收序号返回URL的函数
+     * @param {Object} init - 请求配置对象
+     * @param {number} count - 尝试次数
+     * @returns {Promise<Response>} 最先成功返回的响应对象
+     */
+    async #concurrentFetch(getUrl, init, count) {
+        const controllers = [];
+        const attempts = [];
+        // 每个请求单独配一个 AbortController，只取消没赢的那些，赢家的响应体还要读
+        for (let i = count - 1; i >= -1; i--) {
+            const index = controllers.length;
+            const controller = new AbortController();
+            controllers.push(controller);
+            attempts.push(
+                fetch(getUrl(i), { ...init, signal: controller.signal }).then(
+                    (response) => ({ index, response }),
+                ),
+            );
+        }
+        try {
+            // Promise.any 只在全部失败时才会 reject，任何一个成功都会立刻返回
+            const winner = await Promise.any(attempts);
+            controllers.forEach((controller, i) => {
+                if (i !== winner.index) controller.abort();
+            });
+            return winner.response;
+        } catch (error) {
+            // 全部失败：抛出第一条失败原因，报错信息和顺序分支保持一致
+            throw new Error(error?.errors?.[0] ?? error);
         }
     }
     
@@ -108,7 +151,7 @@ class JmcomicApi {
     async getSearchResults(searchQuery, page, mode) {
         const searchResponse = await this.retryFetch(
             (i) =>
-                `https://${this.servers[4 - i]}/search?search_query=${searchQuery}&o=${mode}&page=${page}`,
+                `https://${this.servers[4 - (i%4)]}/search?search_query=${searchQuery}&o=${mode}&page=${page}`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -129,7 +172,7 @@ class JmcomicApi {
      */
     async getLatestContent(page) {
         const latestResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4 - i]}/latest?page=${page}`,
+            (i) => `https://${this.servers[4 - (i%4)]}/latest?page=${page}`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -158,7 +201,7 @@ class JmcomicApi {
             }
         }
         const promotionResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4 - i]}/promote?page=1`,
+            (i) => `https://${this.servers[4 - (i%4)]}/promote?page=1`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -190,7 +233,7 @@ class JmcomicApi {
      */
     async getComicAlbum(comicId) {
         const albumResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4 - i]}/album?id=${comicId}`,
+            (i) => `https://${this.servers[4 - (i%4)]}/album?id=${comicId}`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -211,7 +254,7 @@ class JmcomicApi {
      */
     async getComicChapter(comicId) {
         const chapterResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4 - i]}/chapter?id=${comicId}`,
+            (i) => `https://${this.servers[4 - (i%4)]}/chapter?id=${comicId}`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -233,7 +276,7 @@ class JmcomicApi {
      */
     async getComicComments(comicId, index) {
         const forumResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4-i]}/forum?page=${index}&mode=manhua&aid=${comicId}`,
+            (i) => `https://${this.servers[4 - (i%4)]}/forum?page=${index}&mode=manhua&aid=${comicId}`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -256,7 +299,7 @@ class JmcomicApi {
      */
     async getCategories() {
         const forumResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4-i]}/categories`,
+            (i) => `https://${this.servers[4 - (i%4)]}/categories`,
             {
                 headers: {
                     token: this.accessToken.token,
@@ -282,7 +325,7 @@ class JmcomicApi {
      */
     async getCategoriesFilter(category, page, order) {
         const forumResponse = await this.retryFetch(
-            (i) => `https://${this.servers[4-i]}/categories/filter?page=${page}&c=${category}&o=${order}`,
+            (i) => `https://${this.servers[4 - (i%4)]}/categories/filter?page=${page}&c=${category}&o=${order}`,
             {
                 headers: {
                     token: this.accessToken.token,

@@ -63,16 +63,18 @@
     height: 30px;
     border-radius: 50%;
 }
-/* 设置项选择器（主题配色、图片预加载边距共用） */
+/* 设置项选择器（主题配色、图片预加载边距、并发请求共用） */
 .theme-list,
-.margin-list{
+.margin-list,
+.concurrent-list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-left: 20px;
 }
 .theme-item,
-.margin-item{
+.margin-item,
+.concurrent-item{
     display: flex;
     align-items: center;
     gap: 6px;
@@ -87,7 +89,9 @@
 .theme-item:hover,
 .theme-item.active,
 .margin-item:hover,
-.margin-item.active{
+.margin-item.active,
+.concurrent-item:hover,
+.concurrent-item.active{
     background-color: var(--theme-border);
     color: var(--theme-text-inverse);
 }
