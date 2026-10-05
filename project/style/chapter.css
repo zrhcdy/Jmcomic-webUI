@@ -96,6 +96,45 @@
     margin-left: 10px;
     flex-shrink: 0;
 }
+.download-comic {
+    position: relative;
+    width: 100px;
+    height: 30px;
+    margin-top: 10px;
+    border: 1px solid var(--theme-accent-main);
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+.download-menu {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 8px);
+    display: none;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--theme-card-bg);
+    box-shadow: 0 4px 14px var(--theme-shadow-strong);
+    /* .body 里那些被定位过的元素（.comic-img、.m-progress-cr）会盖住后出现的弹出层 */
+    z-index: 40;
+}
+.download-comic.open .download-menu {
+    display: block;
+}
+.download-menu-item {
+    height: 44px;
+    line-height: 44px;
+    font-size: 16px;
+    color: var(--theme-text-option);
+    background-color: var(--theme-card-bg);
+}
+.download-menu-item:hover {
+    color: var(--theme-text-inverse);
+    background-color: var(--theme-accent-main);
+}
 .body {
     display: flex;
     width: 1100px;
@@ -558,7 +597,9 @@
 }
 @media screen and (max-width: 680px) {
     .head {
-        height: 300px;
+        /* 作者名字下面多了个下载按钮，固定高度会把它顶出 head，改成自适应 */
+        height: auto;
+        min-height: 300px;
         padding: 15px;
     }
     .head > .cover {
@@ -597,7 +638,8 @@
 }
 @media screen and (max-width: 500px) {
     .head {
-        height: 250px;
+        height: auto;
+        min-height: 250px;
         padding: 15px;
     }
     .head > .cover {

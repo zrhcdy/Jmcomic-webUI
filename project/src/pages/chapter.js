@@ -1,6 +1,7 @@
 import { jmApi } from "../api/JmcomicApi.js";
 import { ComicImageManager } from "../components/chapter/ComicImageManager.js";
 import { CommentManager } from "../components/chapter/CommentManager.js";
+import { DownloadBtnManager } from "../components/chapter/DownloadBtnManager.js";
 import { HeadManager } from "../components/chapter/HeadManager.js";
 import { RecommendationsComicManager } from "../components/chapter/RecommendedComicsManager.js";
 import { SeriesManager } from "../components/chapter/SeriesManager.js";
@@ -12,6 +13,7 @@ class ChapterPage {
     comicId;
     comicImageManager;
     commentManager;
+    downloadBtnManager;
     headManager;
     recommendedComicsManager;
     navManager;
@@ -76,8 +78,10 @@ class ChapterPage {
         });
         this.navManager = new NavManager();
         this.switchServerBtnManager = new SwitchServerBtnManager();
+        this.downloadBtnManager = new DownloadBtnManager();
         this.navManager.init();
         this.switchServerBtnManager.init();
+        this.downloadBtnManager.init(this.id);
     }
 }
 const app = new ChapterPage();

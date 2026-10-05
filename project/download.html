@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate">
+        <title>下载</title>
+        <link rel="stylesheet" href="./style/basic.css">
+        <link rel="stylesheet" href="./style/download.css">
+    </head>
+    <body>
+        <script>
+            // 应用已保存的主题，避免页面先以默认主题渲染再变色
+            (function () {
+                const theme = localStorage.getItem("app_theme");
+                if (theme) document.documentElement.classList.add(theme + "-theme");
+            })();
+        </script>
+        <div class="root">
+            <nav class="nav">
+                <div class="page-list-btn">
+                    <div class="btn-inner"></div>
+                    <div class="btn-inner"></div>
+                    <div class="btn-inner"></div>
+                </div>
+                <div class="logo">JmViewer</div>
+                <div class="pages">
+                    <!-- <div class="bot-bar"></div> -->
+                    <div class="page-list">
+                        <a class="p-item" href="./index.html">首页</a>
+                        <a class="p-item" href="./latest.html">最新</a>
+                        <a class="p-item" href="./categories.html">分类</a>
+                    </div>
+                </div>
+                <div class="search">
+                    <form>
+                        <input type="search" placeholder="搜索" />
+                    </form>
+                </div>
+                <div class="pages-2">
+                    <div class="page-list">
+                        <a class="p-item" href="./favorite.html">
+                            <span>收藏</span>
+                            <div class="small-icon">收</div>
+                        </a>
+                        <a class="p-item" href="./history.html">
+                            <span>历史</span>
+                            <div class="small-icon">历</div>
+                        </a>
+                        <a class="p-item" href="./setting.html">
+                            <span>设置</span>
+                            <div class="small-icon">设</div>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <nav class="mob-nav">
+                <div class="mn-inner">
+                    <div class="mn-head">
+                        <img src="./image/cover.png" alt="头像">
+                    </div>
+                    <div class="mn-items-cr">
+                        <a class="mn-item" href="./index.html">
+                            主页
+                        </a>
+                        <a class="mn-item" href="./latest.html">
+                            最新
+                        </a>
+                        <a class="mn-item" href="./categories.html">
+                            分类
+                        </a>
+                        <a class="mn-item" href="./favorite.html">
+                            收藏
+                        </a>
+                        <a class="mn-item" href="./history.html">
+                            历史
+                        </a>
+                        <a class="mn-item" href="./setting.html">
+                            设置
+                        </a>
+                    </div>
+                </div>
+            </nav>
+            <div class="download-body">
+                <h1 class="title">下载</h1>
+                <div class="dl-album">
+                    <img class="dl-cover" id="dl-cover" alt="">
+                    <div class="dl-info">
+                        <h2 class="dl-name" id="dl-name">正在加载…</h2>
+                        <p class="dl-meta" id="dl-meta"></p>
+                        <p class="dl-param" id="dl-param"></p>
+                    </div>
+                </div>
+                <p class="dl-error" id="dl-error" hidden></p>
+                <div class="dl-panel">
+                    <div class="dl-panel-head">
+                        <span>选择章节</span>
+                        <div class="dl-panel-tools">
+                            <span id="dl-selected-count">已选 0/0 章</span>
+                            <button type="button" class="dl-mini" id="dl-select-all">全选</button>
+                            <button type="button" class="dl-mini" id="dl-select-none">全不选</button>
+                        </div>
+                    </div>
+                    <div class="chapter-list" id="dl-chapters"></div>
+                </div>
+                <div class="dl-actions">
+                    <button type="button" class="dl-btn" id="dl-start" disabled>开始下载</button>
+                    <button type="button" class="dl-btn ghost" id="dl-cancel" disabled>取消</button>
+                </div>
+                <div class="dl-progress-row">
+                    <div class="dl-progress">
+                        <div class="dl-progress-inner" id="dl-progress-inner"></div>
+                    </div>
+                    <span class="dl-progress-text" id="dl-progress-text">0%</span>
+                </div>
+                <p class="dl-status" id="dl-status">正在初始化…</p>
+                <div class="dl-log" id="dl-log"></div>
+            </div>
+        </div>
+        <!--
+            JSZip 的 UMD 包，用普通 script 挂在 window.JSZip 上，只给 zip 模式用。
+            优先用 src/utils 下本地这一份；本地那份要是没到位，就退回官方 CDN，
+            免得 zip 模式因为少了一个文件就整个用不了。
+            这里用 document.write 而不是动态插 script，是因为它是同步的：
+            写完的 script 会在解析继续之前执行完，后面那个 module 脚本
+            （module 是 defer 的，解析结束才跑）一定能看到 window.JSZip。
+        -->
+        <script src="./src/utils/jszip.min.js"></script>
+        <script>
+            if (typeof window.JSZip !== "function") {
+                document.write('<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"><\/script>');
+            }
+        </script>
+        <script type="module" src="./src/pages/download.js"></script>
+    </body>
+</html>
