@@ -35,25 +35,26 @@
         flex-wrap: wrap;
     }
 }
-/* 主题切换 */
-/* 色卡颜色是各主题自身的标识色，用于预览，固定不随当前主题变化 */
-[data-theme="pink"]{
-    --theme-swatch: #f8bbd0;
+/* 设置项选择器：主题配色、图片预加载边距、并发请求共用同一套结构和类名
+   选项元素都写在 setting.html 里，写的哪个设置项看 data-key，值统一放在 data-value */
+/* 色卡颜色是各主题自身的标识色，只用于预览，固定不随当前主题变化 */
+[data-value="pink"]{
+    --option-swatch: #f8bbd0;
 }
-[data-theme="blue"]{
-    --theme-swatch: #bcdcf5;
+[data-value="blue"]{
+    --option-swatch: #bcdcf5;
 }
-[data-theme="green"]{
-    --theme-swatch: #bdebd5;
+[data-value="green"]{
+    --option-swatch: #bdebd5;
 }
-[data-theme="purple"]{
-    --theme-swatch: #d9c6f5;
+[data-value="purple"]{
+    --option-swatch: #d9c6f5;
 }
-[data-theme="gray"]{
-    --theme-swatch: #b8b8b8;
+[data-value="gray"]{
+    --option-swatch: #b8b8b8;
 }
-[data-theme="dark"]{
-    --theme-swatch: #3a2830;
+[data-value="dark"]{
+    --option-swatch: #3a2830;
 }
 .option img{
     display: block;
@@ -63,18 +64,13 @@
     height: 30px;
     border-radius: 50%;
 }
-/* 设置项选择器（主题配色、图片预加载边距、并发请求共用） */
-.theme-list,
-.margin-list,
-.concurrent-list{
+.option-list{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-left: 20px;
 }
-.theme-item,
-.margin-item,
-.concurrent-item{
+.option-item{
     display: flex;
     align-items: center;
     gap: 6px;
@@ -86,21 +82,17 @@
     user-select: none;
     transition: background-color .3s,color .3s;
 }
-.theme-item:hover,
-.theme-item.active,
-.margin-item:hover,
-.margin-item.active,
-.concurrent-item:hover,
-.concurrent-item.active{
+.option-item:hover,
+.option-item.active{
     background-color: var(--theme-border);
     color: var(--theme-text-inverse);
 }
-.theme-dot{
+.option-dot{
     width: 14px;
     height: 14px;
     flex-shrink: 0;
     border-radius: 50%;
-    background-color: var(--theme-swatch);
+    background-color: var(--option-swatch);
     box-shadow: 0 0 0 1px var(--theme-text-inverse);
 }
 .slogan{
@@ -113,4 +105,74 @@
         0 0 6px var(--theme-text-title),
         0 0 14px var(--theme-text-title);
     animation: slogan-glow 2.4s ease-in-out infinite;
+}
+/* 图片服务器测速：标题、按钮、状态在一行，结果列表换行独占一整行 */
+.speed-option{
+    flex-wrap: wrap;
+}
+.speed-btn{
+    margin-left: 20px;
+    padding: 4px 14px;
+    border: 1px solid var(--theme-border);
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 16px;
+    color: var(--theme-text-option);
+    background-color: var(--theme-card-bg);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .3s,color .3s;
+}
+.speed-btn:hover:not(:disabled){
+    background-color: var(--theme-border);
+    color: var(--theme-text-inverse);
+}
+.speed-btn:disabled{
+    opacity: .6;
+    cursor: default;
+}
+.speed-tip{
+    margin-left: 12px;
+    font-size: 16px;
+}
+.speed-result{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.speed-item{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px;
+    border: 1px solid var(--theme-border);
+    border-radius: 5px;
+    font-size: 16px;
+    color: var(--theme-text-option);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .3s,color .3s;
+}
+.speed-item:hover{
+    background-color: var(--theme-border);
+    color: var(--theme-text-inverse);
+}
+.speed-item.best{
+    box-shadow: 0 0 0 1px var(--theme-text-title);
+}
+.speed-item.active{
+    background-color: var(--theme-border);
+    color: var(--theme-text-inverse);
+}
+.speed-item.failed{
+    border-color: var(--theme-danger);
+    color: var(--theme-danger);
+    cursor: default;
+}
+.speed-item.failed:hover{
+    background-color: transparent;
+    color: var(--theme-danger);
 }

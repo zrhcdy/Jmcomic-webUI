@@ -245,6 +245,12 @@
                 <a href="./search.html?sq=cosplay" class="tag-item">cosplay</a>
                 <a href="./categories.html" class="tag-item">更多</a>
             </div>
+            <script>
+                if(localStorage.getItem("lite_mode") == "on"){
+                    document.querySelector(".banner").style.display="none"
+                    document.querySelector(".tag-cr").style.display="none"
+                }
+            </script>
         </div>
     </body>
     <script>

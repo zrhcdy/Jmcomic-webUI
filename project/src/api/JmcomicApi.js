@@ -361,13 +361,25 @@ class JmcomicApi {
     }
     
     /**
+     * 获取漫画章节图片URL（指定图片服务器）
+     * 章节图片的地址模板只在这里出现一次，测速时换服务器也用这个方法拼地址
+     * @param {number|string} serverIndex - 图片服务器索引
+     * @param {string|number} id - 章节ID
+     * @param {string} pathName - 图片路径名
+     * @returns {string} 完整的章节图片URL
+     */
+    getChapterImageURLByServer(serverIndex, id, pathName) {
+        return `https://${this.imgServers[serverIndex]}/media/photos/${id}/${pathName}`;
+    }
+
+    /**
      * 获取漫画章节图片URL
      * @param {string|number} id - 章节ID
      * @param {string} pathName - 图片路径名
      * @returns {string} 完整的章节图片URL
      */
     getChapterImageURL(id, pathName) {
-        return `https://${this.imgServers[setting.using_imgserver_index]}/media/photos/${id}/${pathName}`;
+        return this.getChapterImageURLByServer(setting.using_imgserver_index, id, pathName);
     }
 }
 
