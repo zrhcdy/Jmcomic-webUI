@@ -1,7 +1,7 @@
 # jmViewer
 
 一个**纯静态**的漫画浏览前端：界面数据全部来自线上接口，本地没有后端、没有构建步骤、没有 npm 依赖。把仓库克隆下来，用任意静态服务器打开 `index.html` 就能跑。
-
+> 预览地址：<https://zrhcdy.github.io/Jmcomic-webUI/project/index.html>
 > 仓库地址：<https://github.com/zrhcdy/Jmcomic-webUI>
 
 ---
