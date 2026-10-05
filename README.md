@@ -228,16 +228,6 @@ curl -L -o src/utils/jszip.min.js https://unpkg.com/jszip@3.10.1/dist/jszip.min.
 
 ---
 
-## 已知问题
-
-1. **[src/pages/main.js](src/pages/main.js) 是废弃文件**。它 import 的是 `../components/main/*`，但这个目录并不存在（实际目录是 `components/index/`），而且没有任何 HTML 引用它。直接访问会 404，建议删除。
-2. **`.dsh_probe_raw.txt`** 是开发过程留下的空文件，可以删。
-3. **标语动画没有生效**。[style/setting.css](style/setting.css) 里 `.slogan` 声明了 `animation: slogan-glow 2.4s ease-in-out infinite`，但文件里已经没有 `@keyframes slogan-glow` 了，所以动画规则被浏览器忽略，只剩静态的 `text-shadow` 光晕。补回 keyframes 即可恢复呼吸效果。
-4. **图床 CORS 未经验证**（见[关于 CORS](#关于-cors)），会直接影响下载功能。
-5. 章节页头部（`.head`）在小屏下用 `min-height` 而不是固定高度，这是为了让作者名下的下载按钮不会被顶出容器 —— 如果你的改动让头部塞进更多元素，注意这个约束。
-
----
-
 ## 免责声明
 
 - 本项目只是一个**界面**，不含任何内容；所有漫画数据、图片都来自第三方接口，与项目作者无关。
