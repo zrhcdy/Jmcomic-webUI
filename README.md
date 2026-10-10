@@ -2,6 +2,7 @@
 
 一个**纯静态**的漫画浏览前端：界面数据全部来自线上接口，本地没有后端、没有构建步骤、没有 npm 依赖。把仓库克隆下来，用任意静态服务器打开 `index.html` 就能跑。
 > 预览地址：<https://zrhcdy.github.io/Jmcomic-webUI/project/index.html>
+
 > 仓库地址：<https://github.com/zrhcdy/Jmcomic-webUI>
 
 ---
@@ -9,7 +10,7 @@
 ## 快速开始
 
 **不能用 `file://` 直接双击打开 HTML** —— 项目用的是原生 ES Module，浏览器会以 CORS 为由拒绝加载，`fetch` 也一样。必须走 HTTP 服务。
-
+**JM的服务器非常烂，如果遇到封面加载不出是正常现象( 封面已有重试机制，但还是避免不了）。
 任选一种起服务的方式，在项目根目录执行：
 
 ```bash
