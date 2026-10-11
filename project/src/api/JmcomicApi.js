@@ -95,7 +95,12 @@ class JmcomicApi {
             return this.#concurrentFetch(getUrl, init, count);
         }
         try {
-            const resp = await fetch(getUrl(count - 1), init);
+            const url = getUrl(count - 1);
+            // 强制要求 HTTPS，防止证书欺骗或代理劫持将请求降级为明文传输
+            if (!/^https:\/\//i.test(url)) {
+                throw new Error(`Refusing insecure (non-HTTPS) request to ${url}`);
+            }
+            const resp = await fetch(url, init);
             return resp;
         } catch (error) {
             // 如果重试次数已用完，抛出错误
