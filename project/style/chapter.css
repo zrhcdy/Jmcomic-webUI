@@ -553,7 +553,7 @@
     margin-right: 0;
 
 }
-.reader-horizontal .comic-img canvas ,.comic-img-cr.reader-horizontal .comic-img img{
+.reader-horizontal .comic-img canvas ,.reader-horizontal .comic-img.beginload canvas{
     object-fit: contain;
     width: 100%;
     height: 100%;

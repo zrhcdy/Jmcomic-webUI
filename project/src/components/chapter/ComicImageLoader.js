@@ -37,11 +37,11 @@ export class ComicImageLoader {
                 for (let entry of entries) {
                     if (entry.isIntersecting) {
                         const cover = entry.target;
-                        if(!cover.dataset.beginload){
+                        if(!cover.classList.contains("beginload")){
                             const coverImg = cover.querySelector("img");
                             
                             this.queue.add(cover.dataset.path,()=>{
-                                cover.dataset.beginload="true"
+                                cover.classList.add("beginload")
                                 coverImg.src = jmApi.getChapterImageURL(this.id,cover.dataset.path);
                             })
                         }
