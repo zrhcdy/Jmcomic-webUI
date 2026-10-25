@@ -1,5 +1,6 @@
 import { jmApi } from "../../api/JmcomicApi.js";
 import { Evaluation } from "./Evaluation.js";
+import { setting } from "../general/Setting.js";
 
 export class HeadManager {
     album;
@@ -77,6 +78,9 @@ export class HeadManager {
             document.querySelector(".comic-content-cr").scrollIntoView({
                 behavior: "smooth",
             });
+            if (setting.auto_fullscreen_reader === "on") {
+                document.dispatchEvent(new CustomEvent("auto-enter-reader"));
+            }
         });
 
         const favoriteBtn = this.headDom.querySelector(".add-favorite");

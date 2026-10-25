@@ -38,6 +38,8 @@ class SettingPage {
     async init() {
         setting.init();
 
+        this.navManager = new NavManager();
+        this.navManager.init();
         // 初始化设置项：只依赖本地设置与静态DOM，放在网络请求之前，
         // 避免接口等待期间页面先以默认值渲染再变化
         this.#initOptions();
@@ -45,8 +47,6 @@ class SettingPage {
         this.#initSpeedTest();
 
         await jmApi.init();
-        this.navManager=new NavManager()
-        this.navManager.init()
         this.switchServerBtnManager=new SwitchServerBtnManager()
         this.switchServerBtnManager.init()
     }

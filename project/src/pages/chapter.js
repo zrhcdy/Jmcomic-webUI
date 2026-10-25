@@ -28,6 +28,9 @@ class ChapterPage {
         }
         this.id = id;
         setting.init();
+
+        this.navManager = new NavManager();
+        this.navManager.init();
         await jmApi.init();
 
         let history = localStorage.getItem("history");
@@ -76,10 +79,8 @@ class ChapterPage {
             this.comicImageManager = new ComicImageManager();
             this.comicImageManager.init(chapter);
         });
-        this.navManager = new NavManager();
         this.switchServerBtnManager = new SwitchServerBtnManager();
         this.downloadBtnManager = new DownloadBtnManager();
-        this.navManager.init();
         this.switchServerBtnManager.init();
         this.downloadBtnManager.init(this.id);
     }

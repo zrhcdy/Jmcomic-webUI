@@ -20,11 +20,10 @@ class MainPage {
         // 初始化全局设置
         setting.init();
 
+        this.navManager = new NavManager();
+        this.navManager.init();
         // 初始化禁漫天堂API
         await jmApi.init();
-
-        // 创建导航栏管理器实例
-        this.navManager = new NavManager();
 
         // 创建切换服务器按钮管理器实例
         this.switchServerBtnManager = new SwitchServerBtnManager();
@@ -45,9 +44,6 @@ class MainPage {
 
         // 创建推荐内容管理器实例（处理首页推荐内容展示）
         this.recommendationsManager = new RecommendationsManager();
-
-        // 初始化导航栏管理器
-        this.navManager.init();
 
         // 初始化切换服务器按钮管理器
         this.switchServerBtnManager.init();

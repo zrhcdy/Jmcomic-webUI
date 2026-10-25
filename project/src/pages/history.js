@@ -10,13 +10,14 @@ class HistoryPage {
     constructor() {}
     async init() {
         setting.init()
+        this.navManager = new NavManager();
+        this.navManager.init();
+
         await jmApi.init();
 
         this.historyContainerManager=new HistoryContainerManager()
         this.historyContainerManager.init()
 
-        this.navManager=new NavManager()
-        this.navManager.init()
         this.switchServerBtnManager=new SwitchServerBtnManager()
         this.switchServerBtnManager.init()
     }

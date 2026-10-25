@@ -11,12 +11,13 @@ class LatestPage {
     constructor() {}
     async init() {
         setting.init()
+        this.navManager = new NavManager();
+        this.navManager.init();
+
         await jmApi.init();
         this.latestContainerManager=new LatestContainerManager()
         this.latestContainerManager.init()
 
-        this.navManager=new NavManager()
-        this.navManager.init()
         this.switchServerBtnManager=new SwitchServerBtnManager()
         this.switchServerBtnManager.init()
     }

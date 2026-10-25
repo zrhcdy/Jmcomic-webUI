@@ -10,9 +10,11 @@ class CategoriesPage {
     constructor() {}
     async init() {
         setting.init()
-        await jmApi.init();
         this.navManager=new NavManager()
         this.navManager.init()
+        
+        await jmApi.init();
+        
         this.switchServerBtnManager = new SwitchServerBtnManager();
         this.switchServerBtnManager.init()
         this.categoriesHeadManager=new CategoriesHeadManager()

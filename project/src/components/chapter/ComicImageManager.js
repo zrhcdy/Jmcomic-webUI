@@ -24,6 +24,11 @@ export class ComicImageManager {
         this.readerBtn.addEventListener("click", () => {
             this.reader.toggleReaderMode();
         });
+        document.addEventListener("auto-enter-reader", () => {
+            if (!this.reader.isReaderMode) {
+                this.reader.enterReaderMode();
+            }
+        });
     }
     init(chapter) {
         this.chapter = chapter;

@@ -8,7 +8,8 @@ class Setting{
         cover_img_mode:["dynamic","fixed5"],
         hide_server_switch:["off","on"],
         reader_is_horizontal:["off","on"],
-        reader_image_width:["50","55","60","65","70","75","80","85","90","95","100"]
+        reader_image_width:["50","55","60","65","70","75","80","85","90","95","100"],
+        auto_fullscreen_reader:["off","on"]
     }
 
     #options={
@@ -20,7 +21,8 @@ class Setting{
         cover_img_mode:"fixed5",
         hide_server_switch:"off",
         reader_is_horizontal:"off",
-        reader_image_width:"100"
+        reader_image_width:"100",
+        auto_fullscreen_reader:"off"
     }
     constructor(){
 
@@ -70,6 +72,9 @@ class Setting{
     }
     get reader_image_width(){
         return this.#options.reader_image_width
+    }
+    get auto_fullscreen_reader(){
+        return this.#options.auto_fullscreen_reader
     }
 }
 export const setting=new Setting()

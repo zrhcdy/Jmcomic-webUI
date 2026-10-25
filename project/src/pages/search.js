@@ -19,12 +19,12 @@ class SearchPage {
 
         this.searchQuery = sq;
         setting.init()
+        this.navManager = new NavManager();
+        this.navManager.init();
         await jmApi.init();
         const searchContainerManager=new SearchContainerManager(this.searchQuery)
         searchContainerManager.init()
 
-        this.navManager=new NavManager()
-        this.navManager.init()
         this.switchServerBtnManager=new SwitchServerBtnManager()
         this.switchServerBtnManager.init()
     }

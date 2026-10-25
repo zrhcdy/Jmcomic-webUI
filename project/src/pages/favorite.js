@@ -10,13 +10,14 @@ class FavoritePage {
     constructor() {}
     async init() {
         setting.init()
+        this.navManager = new NavManager();
+        this.navManager.init();
+
         await jmApi.init();
 
         this.favoriteContainerManager=new FavoriteContainerManager()
         this.favoriteContainerManager.init()
 
-        this.navManager=new NavManager()
-        this.navManager.init()
         this.switchServerBtnManager=new SwitchServerBtnManager()
         this.switchServerBtnManager.init()
     }
