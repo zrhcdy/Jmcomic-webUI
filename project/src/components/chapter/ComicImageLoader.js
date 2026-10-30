@@ -45,6 +45,12 @@ export class ComicImageLoader {
                                 this.id,
                                 cover.dataset.path,
                             );
+                            coverImg.onerror = () => {
+                                coverImg.src = jmApi.getChapterImageURL(
+                                    this.id,
+                                    cover.dataset.path,
+                                );
+                            };
                         });
                         this.intersectionObserver.unobserve(cover);
                     }
