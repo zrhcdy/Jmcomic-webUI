@@ -40,6 +40,8 @@ export class ComicImageLoader {
                         const cover = entry.target;
                         const coverImg = cover.querySelector("img");
 
+                        if(cover.classList.contains("beginload"))continue
+                        cover.classList.add("beginload")
                         this.queue.add(cover.dataset.path, () => {
                             coverImg.src = jmApi.getChapterImageURL(
                                 this.id,
@@ -51,8 +53,10 @@ export class ComicImageLoader {
                                     cover.dataset.path,
                                 );
                             };
+                        }, ()=>{
+                            cover.classList.remove("beginload")
                         });
-                        this.intersectionObserver.unobserve(cover);
+                        
                     }
                 }
             },

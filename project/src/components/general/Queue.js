@@ -7,20 +7,23 @@ export class Queue {
         this.maxLength = maxLength;
         this.maxPendingLength=maxPendingLength;
     }
-    add(key,func) {
+    add(key,onTrigger,onKickout) {
         if(this.arr.includes(key))return
         if(this.arr.length < this.maxLength){
             this.arr.push(key);
-            func()
+            onTrigger()
             return
         }
-        this.#addPending(key,func);
+        this.#addPending(key,onTrigger,onKickout);
     }
-    #addPending(key,func) {
+    #addPending(key,onTrigger,onKickout) {
         if(this.pending.find((v)=>v.key === key))return
-        if(this.pending.length >= this.maxPendingLength)this.pending.shift()
+        if(this.pending.length >= this.maxPendingLength){
+            let p = this.pending.shift()
+            p.onKickout();
+        }
         this.pending.push({
-            key,func
+            key,onTrigger,onKickout
         });
     }
     getItem(index) {
@@ -32,7 +35,7 @@ export class Queue {
         this.arr.splice(index, 1);
         if(this.pending.length>0){
             let p=this.pending.shift()
-            p.func();
+            p.onTrigger();
             this.arr.push(p.key);
         }
         
