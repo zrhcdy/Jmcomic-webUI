@@ -66,6 +66,9 @@
 [data-value="dark"]{
     --option-swatch: #3a2830;
 }
+[data-value="orange"]{
+    --option-swatch: #f0b890;
+}
 .option img{
     display: block;
     margin: auto;
@@ -165,10 +168,6 @@
     cursor: pointer;
     user-select: none;
     transition: background-color .3s,color .3s;
-}
-.speed-item:hover{
-    background-color: var(--theme-border);
-    color: var(--theme-text-inverse);
 }
 .speed-item.best{
     box-shadow: 0 0 0 1px var(--theme-text-title);

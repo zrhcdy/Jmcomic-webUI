@@ -18,8 +18,7 @@ class JmcomicApi {
         "cdn-msp.jmapinodeudzn.net",
         "cdn-msp3.jmapinodeudzn.net",
     ];
-    usingImgServerIndex = 0; // 使用中的图片服务器索引
-    
+    imgCounts = 0; // 计数器，方便调用选择的图片服务器
     /**
      * 构造函数，初始化API实例
      */
@@ -348,7 +347,7 @@ class JmcomicApi {
      * @returns {string} 完整的用户头像URL
      */
     getUserPhotoURL(path) {
-        return `https://${this.imgServers[setting.using_imgserver_index]}/media/users/${path}`
+        return `https://${this.imgServers[setting.using_imgserver_index[0]]}/media/users/${path}`
     }
     
     /**
@@ -383,7 +382,8 @@ class JmcomicApi {
      * @returns {string} 完整的章节图片URL
      */
     getChapterImageURL(id, pathName) {
-        return this.getChapterImageURLByServer(setting.using_imgserver_index, id, pathName);
+        this.imgCounts++;
+        return this.getChapterImageURLByServer(setting.using_imgserver_index[this.imgCounts % setting.using_imgserver_index.length], id, pathName);
     }
 }
 

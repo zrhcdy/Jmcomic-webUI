@@ -63,7 +63,7 @@ npx serve -l 5501
 ├── download.html
 ├── image/                        静态图标（封面占位、hot、looking）
 ├── style/                        每个页面一个 CSS + 一个 basic.css（全局与主题变量）
-│   ├── basic.css                 全局样式 + 6 套主题的全部颜色变量
+│   ├── basic.css                 全局样式 + 7 套主题的全部颜色变量
 │   ├── index.css  chapter.css  categories.css  favorite.css
 │   ├── history.css  latest.css  search.css  setting.css  download.css
 └── src/
@@ -102,7 +102,7 @@ npx serve -l 5501
 
 每个页面顶部都有同一套导航：桌面端 `.nav`（首页 / 最新 / 分类 ｜ 收藏 / 历史 / 设置 + 搜索框），移动端 `.mob-nav`（汉堡菜单）。这两块由 [NavManager.js](project/src/components/general/NavManager.js) 统一接管，搜索框提交后跳 `search.html?sq=`。
 
-导航右侧的「图源 N」是图片服务器切换（共 6 条线路），由 [SwitchServerBtnManager.js](project/src/components/general/SwitchServerBtnManager.js) 处理，选中的线路记在 `localStorage`，所有图片链接都跟着它走。
+导航右侧的「图源」是图片服务器切换（共 6 条线路），由 [SwitchServerBtnManager.js](project/src/components/general/SwitchServerBtnManager.js) 处理。支持**同时启用多条线路**：章节图片会按轮询（round-robin）分配到已启用的线路中，选中的线路记在 `localStorage`。至少保留一条启用，导航上显示为「图源 2 & 6」样式（超过 3 条显示为「...」）。
 
 不知道选哪条的时候，去设置页点一下[图片服务器测速](#图片服务器测速)，它会把这 6 条线路挨个量一遍，并把最快的那条直接切上。
 
@@ -112,7 +112,7 @@ npx serve -l 5501
 
 ### 阅读器模式
 
-章节页还有一个全屏阅读器 [ComicReader.js](project/src/components/chapter/ComicReader.js)，通过「图集」旁边的按钮进入。功能：
+章节页还有一个全屏阅读器 [ComicReader.js](project/src/components/chapter/ComicReader.js)，可通过两种方式进入：点击「开始阅读」按钮（若开启[自动全屏阅读](#设置项)则自动进入，否则滚动到漫画区）；或点击「图集」旁边的按钮手动进入。功能：
 
 - **全屏沉浸式阅读**：隐藏顶部导航，只显示图片区域 + 底部状态栏，按 `Esc` 退出
 - **纵向/横向切换**：纵向是默认的真实·全屏；横向模式下图片左右翻页，点击左/右半屏翻到上一张/下一张。可在设置页预设默认方向（「横向阅读模式」）
@@ -154,15 +154,16 @@ npx serve -l 5501
 
 | 键（localStorage） | 可选值 | 默认 | 说明 |
 | --- | --- | --- | --- |
-| `using_imgserver_index` | `"0"` ~ `"5"` | `"0"` | 使用第几条图片服务器线路（对应导航上的「图源 N」，也可以让[测速](#图片服务器测速)自动挑） |
-| `app_theme` | `pink` `blue` `green` `purple` `gray` `dark` | `pink` | 配色主题 |
-| `root_margin` | `0px` `50px` `100px` `200px` `500px` `1000px` | `50px` | 图片懒加载的预加载边距，越大越早开始加载 |
-| `concurrent_request` | `off` `on` | `off` | 并发请求：同时向所有服务器发起同一个请求，只保留最快返回的那个（见[并发请求](#并发请求)） |
+| `using_imgserver_index` | `"0"` ~ `"5"` 的多选数组 | `["1", "5"]` | 启用的图片服务器线路（支持多选，导航上显示为「图源 2 & 6」样式；章节图片按轮询分配到各线路。也可以让[测速](#图片服务器测速)自动挑） |
+| `app_theme` | `pink` `blue` `green` `purple` `orange` `gray` `dark` | `pink` | 配色主题 |
+| `root_margin` | `0px` `50px` `100px` `200px` `500px` `1000px` `2000px` | `50px` | 图片懒加载的预加载边距，越大越早开始加载 |
+| `concurrent_request` | `off` `on` | `on` | 并发请求：同时向所有服务器发起同一个请求，只保留最快返回的那个（见[并发请求](#并发请求)） |
 | `lite_mode` | `off` `on` | `off` | 精简模式：首页不加载横幅轮播与标签区，少发一批请求（见[精简模式](#精简模式)） |
 | `cover_img_mode` | `dynamic` `fixed5` | `fixed5` | 封面图源：`dynamic` 根据漫画 ID 分散到不同服务器，`fixed5` 固定使用图源 5 |
 | `hide_server_switch` | `off` `on` | `off` | 隐藏导航栏上的图源切换按钮（设置页切完后可以藏掉） |
 | `reader_is_horizontal` | `off` `on` | `off` | 阅读器模式默认方向：`off` 为纵向全屏，`on` 为横向翻页（见[阅读器模式](#阅读器模式)） |
-| `reader_image_width` | `"50"` ~ `"100"` | `"100"` | 阅读器中图片宽度百分比，纵向模式下生效，横向模式固定全宽 |
+| `reader_image_width` | `"50"` ~ `"100"` | `"50"` | 阅读器中图片宽度百分比，纵向模式下生效，横向模式固定全宽 |
+| `auto_fullscreen_reader` | `off` `on` | `off` | 自动全屏阅读：开启后点击章节页的「开始阅读」按钮会自动进入全屏阅读器模式 |
 
 > 注意：`root_margin` 是在创建 `IntersectionObserver` 时读取的，而 `rootMargin` 一旦创建就不能修改 —— **改完设置要重新进一次章节页才生效**。
 
@@ -174,7 +175,7 @@ npx serve -l 5501
 
 - **只对「按序号拼出不同服务器地址」的调用生效** —— 作品信息、章节列表、搜索、最新、分类、评论。传固定 URL 的调用（例如图片下载）每次重试都是同一个地址，并发没有意义，仍然走顺序重试。
 - 适合图源线路不稳定、有几条线路特别慢的情况：省掉「等第一个超时」的等待。
-- 代价是**一次请求会打出好几倍的流量**，也可能触发服务器限流。所以**默认关闭**。
+- 代价是**一次请求会打出好几倍的流量**，也可能触发服务器限流。不过默认开启，如果流量敏感可以关掉。
 - 该设置在每次发起请求时重新读取，**改完立即生效，不用刷新页面**。
 
 ### 精简模式
@@ -189,7 +190,7 @@ npx serve -l 5501
 
 - **用 `<img>` 而不是 `fetch`**：图床不一定返回 CORS 头，`fetch` 会被浏览器拦下报错，可图片本身其实加载得动 —— 那样测出来的是「能不能跨域」而不是「快不快」。也正是因为这个原因**没有**设置 `crossOrigin`。
 - **避免缓存**：每台的地址都挂了一个唯一查询参数（`_t=<时间戳>_<序号>`），浏览器和中间的缓存都会把它当成一张全新的图。
-- **6 台同时起跑，所以最先加载完的那台就是最快的** —— 界面一收到结果就立刻把 `using_imgserver_index` 切过去，并同步导航上的「图源 N」，不用等最慢的那台。
+- **6 台同时起跑，所以最先加载完的那台就是最快的** —— 界面一收到结果就立刻把 `using_imgserver_index` 切到最快的那台（会将当前多选替换为单选），并同步导航上的「图源 N」，不用等最慢的那台。
 - 单台超过 8 秒算「超时」（换成一个空图让浏览器放弃这次请求），加载报错算「加载失败」。
 - 结果条目可以点，手动切到任意一台；切换**不刷新页面**，方便对着结果反复比。
 
@@ -202,7 +203,7 @@ npx serve -l 5501
 界面里的所有颜色都走 CSS 变量，不再有硬编码色值。变量集中定义在 [style/basic.css](project/style/basic.css) 顶部的 `.pink-theme, :root { … }`，每套主题 **49 个变量**。
 
 - `:root` 与 `.pink-theme` 并列，所以**没有任何主题类时就是粉色**（默认主题，兜底）。
-- 另外 5 套是同优先级的类选择器，写在 `:root` 之后：`.blue-theme`、`.green-theme`、`.purple-theme`、`.gray-theme`、`.dark-theme`。
+- 另外 6 套是同优先级的类选择器，写在 `:root` 之后：`.blue-theme`、`.green-theme`、`.purple-theme`、`.orange-theme`、`.gray-theme`、`.dark-theme`。
 - 切换时只改 `document.documentElement` 的类名：先摘掉旧主题类，再加 `{theme}-theme`。
 
 **避免主题闪烁**：每个 HTML 的 `<body>` 第一个子元素都有一段同步脚本：

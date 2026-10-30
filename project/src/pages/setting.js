@@ -2,7 +2,6 @@ import { jmApi } from "../api/JmcomicApi.js";
 import { NavManager } from "../components/general/NavManager.js";
 import { ServerSpeedTester } from "../components/general/ServerSpeedTester.js";
 import { setting } from "../components/general/Setting.js";
-import { SwitchServerBtnManager } from "../components/general/SwitchServerBtnManager.js";
 
 /**
  * 设置页的选项元素全部写在 setting.html 里，类名统一为下面这一套：
@@ -47,8 +46,6 @@ class SettingPage {
         this.#initSpeedTest();
 
         await jmApi.init();
-        this.switchServerBtnManager=new SwitchServerBtnManager()
-        this.switchServerBtnManager.init()
     }
 
     /**
@@ -174,20 +171,20 @@ class SettingPage {
         this.speedItemDoms = [
             ...this.speedResultDom.querySelectorAll(".speed-item"),
         ];
-        this.#markServer(+setting.using_imgserver_index);
+        this.#markServer();
 
         this.speedBtnDom.addEventListener("click", () => this.runSpeedTest());
-        // 点某一项就切到那台服务器：测速只是给建议，用哪台还是用户说了算
+        // 点某一项就切换该图源的启用状态：测速只给建议，用哪台由用户自己选
         this.speedResultDom.addEventListener("click", (e) => {
             const itemDom = e.target.closest(".speed-item");
             if (!itemDom || itemDom.classList.contains("failed")) return;
-            this.useServer(+itemDom.dataset.index);
+            this.toggleServer(+itemDom.dataset.index);
         });
     }
 
     /**
      * 测速：同时向所有图片服务器请求同一张图，每台一回来就刷新一条结果
-     * 六台是同时起跑的，所以最先回来的那台就是最快的，一到手就直接切过去
+     * 最先回来的那台就是最快的，结果只做展示，不会自动切换图源
      */
     async runSpeedTest() {
         if (this.testing) return;
@@ -218,7 +215,7 @@ class SettingPage {
     }
 
     /**
-     * 刷新一台服务器的测速结果；如果它是目前最快的，就顺手切过去
+     * 刷新一台服务器的测速结果；如果是目前最快的，标记为 best 并更新提示
      * @param {Object} result ServerSpeedTester 的结果 { index, success, time, error }
      */
     #showSpeedResult(result) {
@@ -238,33 +235,38 @@ class SettingPage {
         this.bestTime = result.time;
         this.speedItemDoms.forEach((other) => other.classList.remove("best"));
         itemDom.classList.add("best");
-        this.useServer(result.index);
         this.#setSpeedTip(
-            `已切换到 图源${result.index + 1}（最快，${Math.round(result.time)}ms）`,
+            `图源${result.index + 1} 最快（${Math.round(result.time)}ms）`,
         );
     }
 
     /**
-     * 使用某台图片服务器：写入本地设置，并同步导航上的图源按钮
-     * 这里刻意不刷新页面 —— 测速结果还要留在屏幕上给用户看
+     * 切换某台图片服务器的启用状态：已启用的点一下取消，未启用的点一下加入
+     * 至少保留一台处于启用状态
      * @param {number} index 图片服务器索引
      */
-    useServer(index) {
-        setting.setOption("using_imgserver_index", index);
-        // 读回真实生效的值：万一白名单里没有这个索引，界面跟着实际设置走
-        const currentIndex = +setting.using_imgserver_index;
-        this.#markServer(currentIndex);
-        this.switchServerBtnManager?.setServer(currentIndex);
-        this.#setSpeedTip(`已切换到 图源${currentIndex + 1}`);
+    toggleServer(index) {
+        const currentIndices = setting.using_imgserver_index;
+        const idxStr = index.toString();
+        if (currentIndices.includes(idxStr)) {
+            if (currentIndices.length === 1) return;
+            setting.setOption("using_imgserver_index", currentIndices.filter((v) => Number(v) !== index));
+            
+        } else {
+            setting.setOption("using_imgserver_index", currentIndices.concat([idxStr]));
+            
+        }
+        this.#markServer();
+        
     }
 
     /**
-     * 标出当前正在使用的图片服务器
-     * @param {number} index 图片服务器索引
+     * 标出当前所有已启用的图片服务器
      */
-    #markServer(index) {
+    #markServer() {
+        const activeIndices = setting.using_imgserver_index.map(Number);
         this.speedItemDoms.forEach((itemDom) => {
-            itemDom.classList.toggle("active", +itemDom.dataset.index === index);
+            itemDom.classList.toggle("active", activeIndices.includes(+itemDom.dataset.index));
         });
     }
 

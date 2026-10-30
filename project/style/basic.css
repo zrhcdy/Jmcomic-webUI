@@ -302,6 +302,80 @@
     --theme-progress-frame: #000000;
 }
 
+/* 橙色主题 */
+.orange-theme {
+    /* 基础颜色 */
+    --theme-bg: #ffffff;
+    --theme-text: #2a1a0f;
+    --theme-text-strong: #3d2818;
+    --theme-text-title: #d47020;
+    --theme-text-heading: #382015;
+    --theme-text-option: #502d18;
+    --theme-text-inverse: #ffffff;
+    --theme-text-on-accent: #fff0e6;
+    --theme-logo: #a85520;
+
+    /* 主色 */
+    --theme-primary: #e08850;
+    --theme-primary-light: #f0b890;
+    --theme-primary-lighter: #f8d0b0;
+    --theme-primary-soft: #f8dac0;
+    --theme-primary-wash: #f5c8a0;
+    --theme-card-bg: #fff3e8;
+    --theme-menu-bg: #fff8f2;
+
+    /* 强调色 */
+    --theme-accent: #d47020;
+    --theme-accent-light: #e08850;
+    --theme-accent-soft: #d87838;
+    --theme-accent-main: #d87430;
+    --theme-accent-pale: #f0b080;
+    --theme-accent-muted: #f0b898;
+    --theme-accent-bright: #e08040;
+    --theme-accent-strong: #b85a10;
+    --theme-accent-deep: #783808;
+
+    /* 渐变色 */
+    --theme-gradient-end: #f0b898;
+
+    /* 边框线条 */
+    --theme-border: #d47020;
+    --theme-border-light: #f0b898;
+    --theme-title-underline: #e89860;
+
+    /* 背景色 */
+    --theme-banner-bg: #3d2010;
+    --theme-neutral-bg: #f5ede5;
+    --theme-image-bg: #a08878;
+
+    /* 阴影 */
+    --theme-shadow: #e8c0a0;
+    --theme-shadow-strong: #6b4030;
+
+    /* 遮罩与半透明 */
+    --theme-overlay: rgba(0, 0, 0, 0.5);
+    --theme-overlay-strong: rgba(0, 0, 0, 0.6);
+    --theme-overlay-gradient: rgba(0, 0, 0, 0.8);
+    --theme-loading-overlay: rgba(140, 120, 100, 0.5);
+    --theme-input-bg: rgba(255, 255, 255, 0.5);
+
+    /* 加载动画 */
+    --theme-loading: rgb(212, 112, 32);
+    --theme-loading-shadow: #e89860;
+    --theme-loading-bg: #c06020;
+    --theme-loading-glow: #e89058;
+
+    /* 状态色 */
+    --theme-warning: #ff9900;
+    --theme-warning-bg: rgb(255, 223, 174);
+    --theme-danger: #b20e0e;
+
+    /* 进度条 */
+    --theme-progress-bg: #f8c8a0;
+    --theme-progress-border: #f0a870;
+    --theme-progress-frame: #2a1a0f;
+}
+
 /* 灰白主题 */
 .gray-theme {
     /* 基础颜色 */
@@ -640,7 +714,7 @@ body {
     cursor: pointer;
 }
 .switch-server:hover .sh-sr-cr {
-    height: 300px;
+    height: 240px;
 }
 .sh-sr-cr {
     position: absolute;
@@ -655,10 +729,10 @@ body {
 }
 .server-name {
     width: 100%;
-    height: 50px;
+    height: 40px;
     font-size: 20px;
     text-align: center;
-    line-height: 50px;
+    line-height: 40px;
     background-color: var(--theme-accent-light);
 }
 .server-name.active {
