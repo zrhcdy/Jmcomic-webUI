@@ -81,18 +81,22 @@ export class SearchContainerManager {
         );
 
         return Promise.all([album, list]).then(([album, list]) => {
+            const childCount = this.containerDom.children.length;
+
             if (album?.name) {
-                let crDom = this.#getComicsCr([album]);
-                this.containerDom.appendChild(crDom);
-                lazyLoader.addCover(crDom.querySelector(".cover"));
+                this.containerDom.insertAdjacentHTML(
+                    "beforeend",
+                    this.#getComicsHTML([album]),
+                );
             }
 
             this.scrollContainer.maxPageIndex = Math.ceil(list.total / 80);
-            let crDom = this.#getComicsCr(list.content);
-            this.containerDom.appendChild(crDom);
-            const covers = crDom.querySelectorAll(".cover");
-            for (let cover of covers) {
-                lazyLoader.addCover(cover);
+            this.containerDom.insertAdjacentHTML(
+                "beforeend",
+                this.#getComicsHTML(list.content),
+            );
+            for (let i = childCount; i < this.containerDom.children.length; i++) {
+                lazyLoader.addCover(this.containerDom.children[i].querySelector(".cover"));
             }
         }).catch((err)=>{
             if(err.name === "AbortError"){
@@ -123,12 +127,6 @@ export class SearchContainerManager {
                 location.href = aDom.href;
             }
         });
-    }
-    #getComicsCr(list) {
-        const cr = document.createElement("div");
-        cr.className = "comics-cr";
-        cr.innerHTML = this.#getComicsHTML(list);
-        return cr;
     }
     #getComicsHTML(list) {
         return list.map((c) => comicDom.createComicItemHTML(c)).join("");

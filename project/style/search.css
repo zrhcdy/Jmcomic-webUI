@@ -22,10 +22,6 @@
     user-select: none;
 }
 .search-cr{
-    width: 100%;
-    height: auto;
-}
-.comics-cr{
     display: flex;
     justify-content: space-around;
     gap: 10px;
@@ -118,7 +114,7 @@
     }
 }
 @media screen and (max-width:460px){
-    .comics-cr{
+    .search-cr{
         gap:5px;
     }
     .comic-item{

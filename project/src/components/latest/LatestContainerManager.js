@@ -24,6 +24,7 @@ export class LatestContainerManager {
         this.#addEvent();
     }
     async loadContent(page) {
+        this.loadingIconDom.style.display = "block";
         let list = await jmApi.getLatestContent(page).catch((err) => {
             document
                 .querySelector(".root")
@@ -33,21 +34,25 @@ export class LatestContainerManager {
                 );
             throw err;
         });
-        let crDom = this.#getComicsCr(list);
-        this.containerDom.appendChild(crDom);
-        const covers = crDom.querySelectorAll(".cover");
-        for (let cover of covers) {
-            lazyLoader.addCover(cover);
+        
+        // 接口不返回 total，只能靠「返回空数组」判断是否翻到最后一页
+        if (list.length === 0) {
+            this.scrollContainer.maxPageIndex = Math.max(page - 1, 1);
+            return;
+        }
+
+        const childCount = this.containerDom.children.length;
+
+        this.containerDom.insertAdjacentHTML(
+            "beforeend",
+            this.#getComicsHTML(list),
+        );
+        for (let i = childCount; i < this.containerDom.children.length; i++) {
+            lazyLoader.addCover(this.containerDom.children[i].querySelector(".cover"));
         }
     }
     onPageEnd(page) {
         this.loadingIconDom.style.display = "none";
-    }
-    #getComicsCr(list) {
-        const cr = document.createElement("div");
-        cr.className = "comics-cr";
-        cr.innerHTML = this.#getComicsHTML(list);
-        return cr;
     }
     #getComicsHTML(list) {
         return list.map((c) => comicDom.createComicItemHTML(c)).join("");

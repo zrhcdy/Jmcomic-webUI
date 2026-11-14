@@ -222,9 +222,7 @@ class JmcomicApi {
             attempts.push(
                 fetch(getUrl(i), {
                     ...init,
-                    signal: init.signal
-                        ? AbortSignal.any([init.signal, controller.signal])
-                        : controller.signal,
+                    signal: this.#combineSignals(init.signal, controller),
                 }).then((response) => ({ index: i, response })),
             );
         }
@@ -239,6 +237,31 @@ class JmcomicApi {
             // 全部失败：抛出第一条失败原因，报错信息和顺序分支保持一致
             throw error?.errors?.[0] ?? error;
         }
+    }
+
+    /**
+     * 组合外部 signal 与本次请求自己的 controller.signal，任一方 abort 即触发合并结果。
+     * 不用 AbortSignal.any：移动端旧版 Safari（< 17.4）/ Android WebView（< 116）不支持，
+     * 改用手动转发 abort 事件，保证并发请求在移动端也能正常取消。
+     * @param {AbortSignal} [outerSignal] - 调用方传入的 signal，可为空
+     * @param {AbortController} controller - 本次请求独立的 controller
+     * @returns {AbortSignal} 合并后的 signal
+     */
+    #combineSignals(outerSignal, controller) {
+        // 没有外部 signal 时，直接用本次请求的 controller.signal
+        if (!outerSignal) return controller.signal;
+        const combined = new AbortController();
+        const forward = () => {
+            if (!combined.signal.aborted) combined.abort();
+        };
+        // 外部 signal 可能已经 abort 过，需立刻生效
+        if (outerSignal.aborted) {
+            forward();
+        } else {
+            outerSignal.addEventListener("abort", forward, { once: true });
+        }
+        controller.signal.addEventListener("abort", forward, { once: true });
+        return combined.signal;
     }
 
     /**
@@ -363,7 +386,7 @@ class JmcomicApi {
     /**
      * 获取最新上架漫画列表
      * @param {number} page - 页码
-     * @returns {Promise<{total: number, content: Array}>} 列表数据
+     * @returns {Promise<Array>} 列表数据
      */
     async getLatestContent(page) {
         return this.#request(this.API.getLatestContent, {

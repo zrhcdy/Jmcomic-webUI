@@ -63,11 +63,13 @@ export class CategoriesContainerManager {
 
         this.scrollContainer.maxPageIndex = Math.ceil(list.total / 80);
 
-        let crDom = this.#getComicsCr(list.content);
-        this.containerDom.appendChild(crDom);
-        const covers = crDom.querySelectorAll(".cover");
-        for (let cover of covers) {
-            lazyLoader.addCover(cover);
+        const childCount = this.containerDom.children.length;
+        this.containerDom.insertAdjacentHTML(
+            "beforeend",
+            this.#getComicsHTML(list.content),
+        );
+        for (let i = childCount; i < this.containerDom.children.length; i++) {
+            lazyLoader.addCover(this.containerDom.children[i].querySelector(".cover"));
         }
     }
     #addEvent() {
@@ -89,12 +91,6 @@ export class CategoriesContainerManager {
                 location.href = aDom.href;
             }
         });
-    }
-    #getComicsCr(list) {
-        const cr = document.createElement("div");
-        cr.className = "comics-cr";
-        cr.innerHTML = this.#getComicsHTML(list);
-        return cr;
     }
     #getComicsHTML(list) {
         return list

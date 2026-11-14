@@ -18,6 +18,7 @@ class LazyLoader {
         );
     }
     addCover(coverEle){
+        if(!coverEle) return;
         this.observer.observe(coverEle)
         let img=coverEle.children[0]
         let retryCount=0

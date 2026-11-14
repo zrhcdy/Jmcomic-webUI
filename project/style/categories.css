@@ -52,8 +52,13 @@
     background-color: var(--theme-primary-lighter);
 }
 .categories-body{
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    flex-wrap: wrap;
     width: 100%;
     padding: 20px 10%;
+    margin-top: 20px;
 }
 @media screen and (max-width:800px){
     .categories-head{
@@ -64,15 +69,6 @@
     .categories-head{
         width: 100%;
     }
-}
-.comics-cr{
-    display: flex;
-    justify-content: space-around;
-    gap: 10px;
-    flex-wrap: wrap;
-    width: 100%;
-    height: auto;
-    margin-top: 20px;
 }
 .comic-item{
     width: 210px;
@@ -149,7 +145,7 @@
     }
 }
 @media screen and (max-width:460px){
-    .comics-cr{
+    .categories-body{
         gap:5px;
     }
     .comic-item{
