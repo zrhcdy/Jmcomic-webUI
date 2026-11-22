@@ -14,7 +14,7 @@ export class HistoryContainerManager {
     }
     loadContent() {
         let list = cacheManager.history;
-        if (!list) {
+        if (!list || list.length === 0) {
             alert("没有历史记录");
             return;
         }

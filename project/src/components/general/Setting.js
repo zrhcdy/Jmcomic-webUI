@@ -2,55 +2,89 @@ class Setting {
     // 配置项
     #options = {
         using_imgserver_index: {
-            "value":["1","5"],//改为使用数组
-            "validValues":["0","1","2","3","4","5"],
-            "type":"array"
-        }, 
-        
+            value: ["1", "5"], //改为使用数组
+            validValues: ["0", "1", "2", "3", "4", "5"],
+            type: "array",
+        },
+
         app_theme: {
-            "value":"pink",
-            "validValues":["pink","blue","green","purple","gray","dark","orange","deep-orange"],
-            "type":"string"
+            value: "pink",
+            validValues: [
+                "pink",
+                "blue",
+                "green",
+                "purple",
+                "gray",
+                "dark",
+                "orange",
+                "deep-orange",
+            ],
+            type: "string",
         },
         root_margin: {
-            "value":"50px",
-            "validValues":["0px","50px","100px","200px","500px","1000px","2000px"],
-            "type":"string"
+            value: "50px",
+            validValues: [
+                "0px",
+                "50px",
+                "100px",
+                "200px",
+                "500px",
+                "1000px",
+                "2000px",
+            ],
+            type: "string",
         },
         concurrent_request: {
-            "value":"on",
-            "validValues":["off","on"],
-            "type":"string"
+            value: "on",
+            validValues: ["off", "on"],
+            type: "string",
         },
         lite_mode: {
-            "value":"off",
-            "validValues":["off","on"],
-            "type":"string"
+            value: "off",
+            validValues: ["off", "on"],
+            type: "string",
         },
         cover_img_mode: {
-            "value":"fixed5",
-            "validValues":["dynamic","fixed5"],
-            "type":"string"
+            value: "fixed5",
+            validValues: ["dynamic", "fixed5"],
+            type: "string",
         },
         hide_server_switch: {
-            "value":"off",
-            "validValues":["off","on"],
-            "type":"string"
+            value: "off",
+            validValues: ["off", "on"],
+            type: "string",
         },
         reader_is_horizontal: {
-            "value":"off",
-            "validValues":["off","on"],
-            "type":"string"
+            value: "off",
+            validValues: ["off", "on"],
+            type: "string",
         },
         reader_image_width: {
-            "value":"50",
-            "validValues":["50","55","60","65","70","75","80","85","90","95","100"],
-            "type":"string"
+            value: "50",
+            validValues: [
+                "50",
+                "55",
+                "60",
+                "65",
+                "70",
+                "75",
+                "80",
+                "85",
+                "90",
+                "95",
+                "100",
+            ],
+            type: "string",
         },
         auto_fullscreen_reader: {
-            "value":"off",
-            "validValues":["off","on"],
-            "type":"string"
+            value: "off",
+            validValues: ["off", "on"],
+            type: "string",
+        },
+        max_queue_length: {
+            value: "10",
+            validValues: ["3", "6", "10", "20"],
+            type: "string",
         },
     };
     constructor() {}
@@ -58,28 +92,38 @@ class Setting {
         for (let key in this.#options) {
             let value = localStorage.getItem(key);
             if (value === null) continue;
-            if(this.#options[key].type === "array"){
-                try{
+            if (this.#options[key].type === "array") {
+                try {
                     value = JSON.parse(value).array;
-                }catch(e){
-                    localStorage.setItem(key, this.#toValidString(this.#options[key].value));
+                } catch (e) {
+                    localStorage.setItem(
+                        key,
+                        this.#toValidString(this.#options[key].value),
+                    );
                 }
             }
 
             let isValid = false; //默认无效
             if (Array.isArray(value)) {
-                isValid = this.#options[key].type=="array" && value.every((v) =>
-                    this.#options[key].validValues.includes(v),
-                );
+                isValid =
+                    this.#options[key].type == "array" &&
+                    value.every((v) =>
+                        this.#options[key].validValues.includes(v),
+                    );
                 //必须都在白名单里
             } else {
-                isValid = this.#options[key].type=="string" && this.#options[key].validValues.includes(value);
+                isValid =
+                    this.#options[key].type == "string" &&
+                    this.#options[key].validValues.includes(value);
             }
             if (isValid) {
                 //合法性检查
                 this.#options[key].value = value;
             } else {
-                localStorage.setItem(key, this.#toValidString(this.#options[key].value));
+                localStorage.setItem(
+                    key,
+                    this.#toValidString(this.#options[key].value),
+                );
             }
         }
     }
@@ -89,24 +133,28 @@ class Setting {
 
         let isValid = false; //默认无效
         if (Array.isArray(value)) {
-            isValid = this.#options[key].type=="array" && value.every((v) => this.#options[key].validValues.includes(v));
+            isValid =
+                this.#options[key].type == "array" &&
+                value.every((v) => this.#options[key].validValues.includes(v));
             //必须都在白名单里
         } else {
-            isValid = this.#options[key].type=="string" && this.#options[key].validValues.includes(value);
+            isValid =
+                this.#options[key].type == "string" &&
+                this.#options[key].validValues.includes(value);
         }
 
         if (!isValid) return; //不在白名单
-        
+
         this.#options[key].value = value;
 
-        if(this.#options[key].type === "array"){
-            value = this.#toValidString(value);//转换为字符串
+        if (this.#options[key].type === "array") {
+            value = this.#toValidString(value); //转换为字符串
         }
         localStorage.setItem(key, value);
     }
-    #toValidString(array){
-        if(!Array.isArray(array)) return array;
-        return JSON.stringify({array:array});
+    #toValidString(array) {
+        if (!Array.isArray(array)) return array;
+        return JSON.stringify({ array: array });
     }
     get using_imgserver_index() {
         return this.#options.using_imgserver_index.value;
@@ -138,13 +186,16 @@ class Setting {
     get auto_fullscreen_reader() {
         return this.#options.auto_fullscreen_reader.value;
     }
-    get totalServerCount(){
-        return this.#options.using_imgserver_index.validValues.length
+    get max_queue_length() {
+        return this.#options.max_queue_length.value;
     }
-    get isLiteMode(){
+    get totalServerCount() {
+        return this.#options.using_imgserver_index.validValues.length;
+    }
+    get isLiteMode() {
         return this.lite_mode === "on";
     }
-    get isImgModeDynamic(){
+    get isImgModeDynamic() {
         return this.cover_img_mode === "dynamic";
     }
 }

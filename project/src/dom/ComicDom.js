@@ -3,9 +3,9 @@ import { jmApi } from "../api/JmcomicApi.js";
 class ComicDom {
     createComicItemHTML(comic) {
         let comicInfo = JSON.stringify({
-            id: comic.id,
+            id: comic.id.toString(),
             name: comic.name,
-            author: comic.author,
+            author: typeof comic.author === "string" ? comic.author : comic.author.join(" ") || "",
         })
         return `
             <div class="comic-item">

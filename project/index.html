@@ -98,7 +98,7 @@
                     <div class="server-name">图源6</div>
                 </div>
             </div>
-
+            
             <script>
                 if (localStorage.getItem("lite_mode") !== "on") {
                     document.write(`
@@ -265,8 +265,11 @@
                     `);
                     const banner = document.querySelector(".banner");
                     const bannerInner = banner.querySelector(".br-inner");
-                    const bannerItemWidth = bannerInner.children[0].offsetWidth;
                     const bannerWidth = banner.offsetWidth;
+                    const bannerItemWidth =
+                        bannerWidth >= 700
+                            ? bannerInner.querySelector(".br-item").offsetWidth
+                            : bannerInner.querySelector(".l-comic").offsetWidth;
 
                     bannerInner.style.transitionDuration = "0s";
                     bannerInner.style.transform = `translateX(${(bannerWidth - bannerItemWidth) / 2}px)`;

@@ -14,7 +14,7 @@ export class FavoriteContainerManager {
     }
     loadContent() {
         let list = cacheManager.favorite;
-        if (!list) {
+        if (!list || list.length === 0) {
             alert("没有收藏");
             return;
         }

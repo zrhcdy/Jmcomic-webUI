@@ -9,7 +9,7 @@ export class ComicImageLoader {
     cutter;
     id;
     queue;
-    maxQueueLength;
+    maxQueueLength = setting.max_queue_length || 10; //最大同时加载的图片数
     loadedCount = 0;
     constructor(id) {
         this.id = id;
@@ -85,7 +85,6 @@ export class ComicImageLoader {
             { rootMargin: "0px" },
         );
         this.cutter = new ImageCutter();
-        this.maxQueueLength = this.getMaxQueueLength();
         this.queue = new Queue(this.maxQueueLength, 3);
     }
     addImgCr(container) {
@@ -116,12 +115,6 @@ export class ComicImageLoader {
             container.style.height = null;
             this.queue.removeItem(container.dataset.path);
         });
-    }
-    getMaxQueueLength() {
-        let hours = new Date().getHours();
-        if (hours > 21) return 3;
-        if (hours > 18) return 6;
-        return 10;
     }
     onIndexUpdate() {}
     onLoadedImage(count) {}
