@@ -40,6 +40,7 @@ export class ComicImageManager {
         this.imagesContainer.innerHTML = this.#getImageContainerHTML(
             this.chapter.images,
         );
+        
         this.containerHead.querySelector(".cr-head-text").textContent=`图集（0/${chapter.images.length}）`
         for (let i = 0; i < this.imagesContainer.children.length; i++) {
             this.loader.addImgCr(this.imagesContainer.children[i]);

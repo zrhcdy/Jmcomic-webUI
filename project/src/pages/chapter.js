@@ -61,7 +61,9 @@ class ChapterPage {
         }
         // 两个请求互不依赖，一起发出去；谁先回来谁先渲染，但两个都等完 init 才结束
         const albumTask = jmApi.getComicAlbum(this.id).then(
-            (album) => this.#initAlbum(album, history),
+            (album) => {
+                this.#initAlbum(album, history);
+            },
             (err) => {
                 document.querySelector(".loading-sakura")?.remove();
                 this.#showAlbumError(err);
@@ -71,6 +73,9 @@ class ChapterPage {
             (chapter) => {
                 this.comicImageManager = new ComicImageManager();
                 this.comicImageManager.init(chapter);
+                if(chapter.images.length === 0){
+                    this.#showError(".comic-img-cr", "服务器出错", "章节图片为空，请刷新网页或等待一会儿重试（这不是你的问题，也不是我的问题）");
+                }
             },
             (err) => this.#showError(".comic-img-cr", "章节图片加载失败", err),
         );

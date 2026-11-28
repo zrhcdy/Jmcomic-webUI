@@ -2,6 +2,7 @@ export class ComicMobileProgress {
     progressCrDom;
     progressDom;
     progressInnerDom;
+    innerDomHeight;
     maxIndex;
     comicImageCr;
     progressCvs;
@@ -11,6 +12,7 @@ export class ComicMobileProgress {
         this.progressDom = this.progressCrDom.querySelector(".m-progress");
         this.progressInnerDom =
             this.progressCrDom.querySelector(".m-progress-inner");
+        this.innerDomHeight = this.progressInnerDom.offsetHeight;
         this.comicImageCr = document.querySelector(".comic-img-cr");
         this.progressCvs = this.progressCrDom.querySelector(".progress-cvs");
         this.cvsCtx = this.progressCvs.getContext("2d");
@@ -57,7 +59,7 @@ export class ComicMobileProgress {
     setProgress(index) {
         this.progressInnerDom.style.top =
             index * (this.progressDom.offsetHeight / this.maxIndex) -
-            this.progressInnerDom.offsetHeight / 2 +
+            this.innerDomHeight / 2 +
             "px";
         this.progressInnerDom.children[0].textContent = `${index + 1}->`;
     }
